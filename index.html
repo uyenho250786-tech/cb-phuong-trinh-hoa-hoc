@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>⚗ Cân Bằng PTHH</title>
+<title>⚖ Cân Bằng PTHH</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -32,6 +32,22 @@
     overflow-x: hidden;
     position: relative;
   }
+
+  /* ── NAV TABS ── */
+  .nav-tabs {
+    position:sticky; top:0; z-index:100;
+    background:rgba(8,12,18,0.92); backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+    display:flex; align-items:center; gap:0; padding:0 24px;
+  }
+  .nav-brand { font-family:'Syne',sans-serif; font-weight:800; font-size:0.9rem;
+    color:var(--teal); letter-spacing:1px; padding:14px 20px 14px 0;
+    border-right:1px solid var(--border); margin-right:8px; white-space:nowrap; }
+  .nav-tab { padding:14px 20px; font-size:0.78rem; letter-spacing:1px; color:var(--muted);
+    cursor:pointer; border-bottom:2px solid transparent; transition:all 0.2s;
+    text-decoration:none; white-space:nowrap; }
+  .nav-tab:hover { color:var(--text); }
+  .nav-tab.active { color:var(--teal); border-bottom-color:var(--teal); }
 
   /* ── Animated background ── */
   .bg-canvas {
@@ -515,6 +531,13 @@
 </head>
 <body>
 
+<!-- NAV -->
+<nav class="nav-tabs">
+  <div class="nav-brand">⚗ PTHH TOOLS</div>
+  <a class="nav-tab active" href="Chembalancer.html">⚖ Cân Bằng</a>
+  <a class="nav-tab" href="reaction-predictor.html">🔬 Dự Đoán</a>
+</nav>
+
 <!-- Background effects -->
 <div class="grid-bg"></div>
 <div class="hex-grid" id="hexGrid"></div>
@@ -569,7 +592,7 @@
   </div>
 
   <div class="empty-state" id="emptyState">
-    <div class="empty-icon">⚗</div>
+    <div class="empty-icon">Wbiu</div>
     <div class="empty-text">Nhập phương trình và nhấn Cân bằng</div>
   </div>
 </div>
