@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Viết Phương Trình Hoá Học dựa trên chất được cho</title>
+<title>VIẾT PHƯƠNG TRÌNH HOÁ HỌC HOÀN THIỆN</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -27,21 +27,34 @@ body { background:var(--bg); color:var(--text); font-family:'Space Mono',monospa
   animation:hexFloat linear infinite; opacity:0; }
 @keyframes hexFloat { 0%{transform:translateY(110vh) rotate(0deg);opacity:0} 5%{opacity:1} 95%{opacity:1} 100%{transform:translateY(-20vh) rotate(360deg);opacity:0} }
 
-/* ── NAV TABS ── */
-.nav-tabs {
-  position:sticky; top:0; z-index:100;
-  background:rgba(8,12,18,0.92); backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border);
-  display:flex; align-items:center; gap:0; padding:0 24px;
-}
-.nav-brand { font-family:'Syne',sans-serif; font-weight:800; font-size:0.9rem;
-  color:var(--teal); letter-spacing:1px; padding:14px 20px 14px 0;
-  border-right:1px solid var(--border); margin-right:8px; white-space:nowrap; }
-.nav-tab { padding:14px 20px; font-size:0.78rem; letter-spacing:1px; color:var(--muted);
-  cursor:pointer; border-bottom:2px solid transparent; transition:all 0.2s;
-  text-decoration:none; white-space:nowrap; }
-.nav-tab:hover { color:var(--text); }
-.nav-tab.active { color:var(--teal); border-bottom-color:var(--teal); }
+/* ── NAV BAR ── */
+.nav-bar{position:sticky;top:0;z-index:100;background:rgba(8,12,18,0.94);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:8px;min-height:52px;}
+.nav-brand{font-family:'Syne',sans-serif;font-weight:800;font-size:0.9rem;color:var(--teal);
+  letter-spacing:1px;white-space:nowrap;padding-right:14px;border-right:1px solid var(--border);margin-right:4px;flex-shrink:0;}
+.nav-btns{display:flex;gap:6px;flex:1;}
+.nav-btn{padding:7px 14px;background:transparent;border:1px solid var(--border);border-radius:8px;
+  font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.8px;color:var(--muted);
+  cursor:pointer;text-decoration:none;transition:all 0.2s;white-space:nowrap;display:inline-block;}
+.nav-btn:hover{border-color:var(--teal);color:var(--teal);}
+.nav-btn.active{background:rgba(0,220,180,0.1);border-color:var(--teal);color:var(--teal);}
+.hamburger-wrap{position:relative;flex-shrink:0;}
+.hamburger{width:40px;height:40px;background:transparent;border:1px solid var(--border);border-radius:8px;
+  cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0;}
+.hamburger span{display:block;width:16px;height:2px;background:var(--muted);border-radius:2px;transition:all 0.25s;}
+.hamburger:hover span{background:var(--teal);}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.nav-menu{position:absolute;top:calc(100% + 6px);right:0;background:var(--surface);
+  border:1px solid var(--border);border-radius:12px;padding:6px;min-width:230px;
+  box-shadow:0 12px 40px rgba(0,0,0,0.6);display:none;z-index:300;}
+.nav-menu.open{display:block;animation:fadeDown 0.18s ease;}
+.menu-item{display:flex;align-items:center;gap:10px;padding:10px 14px;color:var(--muted);
+  text-decoration:none;font-family:'Space Mono',monospace;font-size:0.76rem;border-radius:8px;transition:all 0.15s;}
+.menu-item:hover,.menu-item.active{background:rgba(0,220,180,0.08);color:var(--teal);}
+.menu-divider{height:1px;background:var(--border);margin:4px 6px;}
+@media(max-width:480px){.nav-btns{display:none;}}
 
 .wrapper { position:relative; z-index:1; max-width:920px; margin:0 auto; padding:36px 24px 80px; }
 
@@ -198,17 +211,30 @@ h1 { font-family:'Syne',sans-serif; font-size:clamp(1.6rem,4.5vw,2.4rem); font-w
 <div class="hex-grid" id="hexGrid"></div>
 
 <!-- NAV -->
-<nav class="nav-tabs">
-  <div class="nav-brand">⚗ PTHH TOOLS</div>
-  <a class="nav-tab" href="Chembalancer.html">⚖ Cân Bằng</a>
-  <a class="nav-tab active" href="reaction-predictor.html">🔬 Dự Đoán</a>
+<nav class="nav-bar">
+  <div class="nav-brand">PHƯƠNG TRÌNH HOÁ HỌC</div>
+  <div class="nav-btns">
+    <a class="nav-btn" href="./index.html">CÂN BẰNG PHƯƠNG TRÌNH</a>
+    <a class="nav-btn active" href="./reaction-predictor.html">VIẾT PHƯƠNG TRÌNH HOÀN THIỆN</a>
+  </div>
+  <div class="hamburger-wrap">
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-menu" id="navMenu">
+      <a class="menu-item" href="./index.html">CÂN BẰNG PHƯƠNG TRÌNH</a>
+      <a class="menu-item active" href="./reaction-predictor.html">VIẾT PHƯƠNG TRÌNH HOÀN THIỆN</a>
+      <div class="menu-divider"></div>
+      <a class="menu-item" href="./formula-fixer.html">SỬA CỒN THỨC</a>
+    </div>
+  </div>
 </nav>
 
 <div class="wrapper">
   <header>
-    <span class="header-icon"></span>
-    <h1>Viết Phản Ứng</h1>
-    <p class="subtitle">DESIGN BY WBIU</p>
+    <span class="header-icon">🔬</span>
+    <h1>VIẾT PHƯƠNG TRÌNH HOÀN THIỆN</h1>
+    <p class="subtitle">DESGIN BY WBIU</p>
     <div class="badge-row">
       <span class="badge">CÁC PHẢN ỨNG CƠ BẢN</span>
       <span class="badge">CÓ XỬ LÝ NGOẠI LỆ</span>
@@ -228,13 +254,13 @@ h1 { font-family:'Syne',sans-serif; font-size:clamp(1.6rem,4.5vw,2.4rem); font-w
         <input class="r-input" id="r1" placeholder="VD: H2O" autocomplete="off" spellcheck="false">
       </div>
     </div>
-    <button class="add-reactant-btn" id="addReactantBtn" onclick="addReactantField()">+ Thêm chất thứ 3</button>
+    <button class="add-reactant-btn" id="addReactantBtn" onclick="addReactantField()">+ Thêm chất sản phẩm</button>
 
     <div class="zone-label" style="margin-top:4px">Điều kiện phản ứng</div>
     <div class="condition-row" id="condRow">
       <span class="cond-chip active" data-cond="auto" onclick="selectCond(this)">Tự động</span>
       <span class="cond-chip" data-cond="thuong" onclick="selectCond(this)">Thường</span>
-      <span class="cond-chip" data-cond="nhiet" onclick="selectCond(this)">Đun nóng</span>
+      <span class="cond-chip" data-cond="nhiet" onclick="selectCond(this)">Đun nóng (∆)</span>
       <span class="cond-chip" data-cond="nhiet_cao" onclick="selectCond(this)">Nhiệt độ cao</span>
       <span class="cond-chip" data-cond="dung_dich" onclick="selectCond(this)">Dung dịch</span>
       <span class="cond-chip" data-cond="dac" onclick="selectCond(this)">Axit đặc</span>
@@ -242,7 +268,7 @@ h1 { font-family:'Syne',sans-serif; font-size:clamp(1.6rem,4.5vw,2.4rem); font-w
     </div>
 
     <div class="btn-row">
-      <button class="btn-predict" id="predictBtn" onclick="doPredict()">Viết sản phẩm</button>
+      <button class="btn-predict" id="predictBtn" onclick="doPredict()">VIẾT PHƯƠNG TRÌNH</button>
       <button class="btn-clear-inputs" onclick="clearAll()">✕ Xoá</button>
     </div>
 
@@ -254,6 +280,7 @@ h1 { font-family:'Syne',sans-serif; font-size:clamp(1.6rem,4.5vw,2.4rem); font-w
     <div id="resultCards"></div>
   </div>
   <div class="empty-state" id="emptyState">
+    <div class="empty-icon">🧪</div>
     <div class="empty-text">Nhập chất phản ứng và nhấn Dự đoán<br>để xem sản phẩm và giải thích</div>
   </div>
 </div>
@@ -1125,7 +1152,7 @@ function doPredict(){
     document.getElementById('resultSection').style.display='block';
     document.getElementById('emptyState').style.display='none';
 
-    btn.innerHTML='Viết sản phẩm';
+    btn.innerHTML='🔬 VIẾT PHƯƠNG TRÌNH';
     btn.disabled=false;
   },40);
 }
@@ -1167,12 +1194,27 @@ function makeWarn(text){
   </div>`;
 }
 
-function doCopy(btn, text){
-  navigator.clipboard.writeText(text).then(()=>{
-    btn.textContent='COPIED!'; btn.style.color='var(--teal)';
-    setTimeout(()=>{ btn.textContent='COPY'; btn.style.color=''; },1500);
-  });
+async function doCopy(btn, text){
+  let ok=false;
+  try{
+    if(navigator.clipboard&&window.isSecureContext){ await navigator.clipboard.writeText(text); ok=true; }
+    else throw 0;
+  }catch{
+    try{
+      const el=document.createElement('textarea'); el.value=text; el.setAttribute('readonly','');
+      el.style.cssText='position:fixed;top:0;left:0;opacity:0.01;width:1px;height:1px;';
+      document.body.appendChild(el); el.focus(); el.select(); el.setSelectionRange(0,99999);
+      ok=document.execCommand('copy'); document.body.removeChild(el);
+    }catch{}
+  }
+  btn.textContent=ok?'✓ Đã chép!':'✗ Lỗi'; btn.style.color=ok?'var(--teal)':'var(--red)';
+  setTimeout(()=>{ btn.textContent='COPY'; btn.style.color=''; },2000);
 }
+function toggleMenu(){
+  document.getElementById('hamburger')?.classList.toggle('open');
+  document.getElementById('navMenu')?.classList.toggle('open');
+}
+document.addEventListener('click',e=>{ if(!e.target.closest('.hamburger-wrap')){ document.getElementById('hamburger')?.classList.remove('open'); document.getElementById('navMenu')?.classList.remove('open'); }});
 
 // ── Floating hexagons ─────────────────────────────────────────────────────
 (function(){
