@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viết Phương Trình Hoá Học dựa trên chất được cho</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080c12; --surface: #0d1420; --surface2: #111b2e; --surface3: #0a1628;
+  --border: rgba(0,220,180,0.15);
+  --teal: #00dcb4; --teal2: #00b896; --cyan: #00e5ff;
+  --orange: #ff6b35; --yellow: #ffd166; --red: #ff4757;
+  --purple: #a855f7; --blue: #3b82f6; --green: #22c55e; --pink: #ec4899;
+  --text: #e8f4f0; --muted: #5a7a70;
+  --glow: 0 0 20px rgba(0,220,180,0.3);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:'Space Mono',monospace; min-height:100vh; overflow-x:hidden; }
+
+.grid-bg { position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image: linear-gradient(rgba(0,220,180,0.03) 1px, transparent 1px), linear-gradient(90deg,rgba(0,220,180,0.03) 1px,transparent 1px);
+  background-size:60px 60px; }
+.hex-grid { position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+.hex { position:absolute; background:transparent; border:1px solid rgba(0,220,180,0.05);
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+  animation:hexFloat linear infinite; opacity:0; }
+@keyframes hexFloat { 0%{transform:translateY(110vh) rotate(0deg);opacity:0} 5%{opacity:1} 95%{opacity:1} 100%{transform:translateY(-20vh) rotate(360deg);opacity:0} }
+
+/* ── NAV TABS ── */
+.nav-tabs {
+  position:sticky; top:0; z-index:100;
+  background:rgba(8,12,18,0.92); backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  display:flex; align-items:center; gap:0; padding:0 24px;
+}
+.nav-brand { font-family:'Syne',sans-serif; font-weight:800; font-size:0.9rem;
+  color:var(--teal); letter-spacing:1px; padding:14px 20px 14px 0;
+  border-right:1px solid var(--border); margin-right:8px; white-space:nowrap; }
+.nav-tab { padding:14px 20px; font-size:0.78rem; letter-spacing:1px; color:var(--muted);
+  cursor:pointer; border-bottom:2px solid transparent; transition:all 0.2s;
+  text-decoration:none; white-space:nowrap; }
+.nav-tab:hover { color:var(--text); }
+.nav-tab.active { color:var(--teal); border-bottom-color:var(--teal); }
+
+.wrapper { position:relative; z-index:1; max-width:920px; margin:0 auto; padding:36px 24px 80px; }
+
+/* ── HEADER ── */
+header { text-align:center; margin-bottom:40px; animation:fadeDown 0.7s ease both; }
+.header-icon { font-size:2.8rem; display:block; margin-bottom:8px; }
+h1 { font-family:'Syne',sans-serif; font-size:clamp(1.6rem,4.5vw,2.4rem); font-weight:800;
+  background:linear-gradient(135deg,var(--orange) 0%,var(--yellow) 60%,var(--teal) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; line-height:1; }
+.subtitle { color:var(--muted); font-size:0.75rem; letter-spacing:3px; text-transform:uppercase; margin-top:8px; }
+.badge-row { display:flex; justify-content:center; gap:8px; margin-top:14px; flex-wrap:wrap; }
+.badge { padding:3px 10px; border:1px solid var(--border); border-radius:100px; font-size:0.65rem; letter-spacing:1.5px; color:var(--teal); background:rgba(0,220,180,0.05); }
+
+/* ── INPUT ZONE ── */
+.input-zone { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:26px; margin-bottom:28px; animation:fadeUp 0.7s 0.15s ease both; transition:border-color 0.3s; }
+.input-zone:focus-within { border-color:rgba(0,220,180,0.35); box-shadow:var(--glow); }
+.zone-label { font-size:0.68rem; letter-spacing:2.5px; text-transform:uppercase; color:var(--teal); margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+.zone-label::before { content:''; width:16px; height:2px; background:var(--teal); border-radius:2px; }
+
+.reactant-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px; }
+@media(max-width:560px){ .reactant-grid{grid-template-columns:1fr;} }
+
+.reactant-input-wrap { position:relative; }
+.reactant-label { font-size:0.62rem; letter-spacing:1.5px; color:var(--muted); text-transform:uppercase; margin-bottom:6px; }
+.r-input { width:100%; background:var(--surface2); border:1px solid rgba(0,220,180,0.1); border-radius:10px;
+  padding:12px 16px; font-family:'Space Mono',monospace; font-size:0.95rem; color:var(--text);
+  outline:none; transition:border-color 0.2s; caret-color:var(--teal); }
+.r-input:focus { border-color:rgba(0,220,180,0.4); }
+.r-input::placeholder { color:var(--muted); }
+
+.add-reactant-btn { width:100%; padding:11px; background:transparent; border:1px dashed rgba(0,220,180,0.2);
+  border-radius:10px; color:var(--muted); font-family:'Space Mono',monospace; font-size:0.8rem;
+  cursor:pointer; transition:all 0.2s; margin-bottom:14px; }
+.add-reactant-btn:hover { border-color:var(--teal); color:var(--teal); background:rgba(0,220,180,0.04); }
+
+/* Condition select */
+.condition-row { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
+.cond-chip { padding:6px 14px; background:var(--surface2); border:1px solid rgba(0,220,180,0.1);
+  border-radius:100px; font-family:'Space Mono',monospace; font-size:0.72rem; color:var(--muted);
+  cursor:pointer; transition:all 0.2s; }
+.cond-chip.active { background:rgba(0,220,180,0.1); border-color:var(--teal); color:var(--teal); }
+.cond-chip:hover { border-color:rgba(0,220,180,0.4); color:var(--text); }
+
+.btn-row { display:flex; gap:10px; flex-wrap:wrap; }
+.btn-predict { flex:1; min-width:160px; padding:12px 24px; background:linear-gradient(135deg,var(--orange),var(--yellow));
+  border:none; border-radius:10px; font-family:'Space Mono',monospace; font-size:0.85rem; font-weight:700;
+  letter-spacing:1px; color:#080c12; cursor:pointer; transition:all 0.2s; }
+.btn-predict:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(255,107,53,0.35); }
+.btn-clear-inputs { padding:12px 18px; background:transparent; border:1px solid rgba(255,71,87,0.3);
+  border-radius:10px; font-family:'Space Mono',monospace; font-size:0.8rem; color:var(--red); cursor:pointer; transition:all 0.2s; }
+.btn-clear-inputs:hover { background:rgba(255,71,87,0.1); }
+
+/* Examples */
+.ex-label { font-size:0.62rem; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin:16px 0 8px; }
+.pills { display:flex; flex-wrap:wrap; gap:7px; }
+.pill { padding:4px 11px; background:var(--surface2); border:1px solid rgba(0,220,180,0.1); border-radius:100px;
+  font-family:'Space Mono',monospace; font-size:0.68rem; color:var(--muted); cursor:pointer; transition:all 0.2s; }
+.pill:hover { border-color:var(--orange); color:var(--orange); background:rgba(255,107,53,0.06); }
+
+/* ── RESULT CARD ── */
+.result-section { animation:fadeUp 0.5s ease both; }
+.res-card { background:var(--surface); border:1px solid rgba(0,220,180,0.25); border-radius:16px;
+  overflow:hidden; margin-bottom:20px; animation:slideIn 0.35s ease both; }
+.res-card.error-card { border-color:rgba(255,71,87,0.3); }
+.res-card.warn-card  { border-color:rgba(255,209,102,0.3); }
+
+.res-header { padding:13px 20px; display:flex; align-items:center; gap:10px;
+  border-bottom:1px solid var(--border); background:rgba(0,0,0,0.25); }
+.res-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+.res-card:not(.error-card):not(.warn-card) .res-dot { background:var(--teal); box-shadow:0 0 8px var(--teal); }
+.error-card .res-dot { background:var(--red); box-shadow:0 0 8px var(--red); }
+.warn-card  .res-dot { background:var(--yellow); box-shadow:0 0 8px var(--yellow); }
+.res-title { font-size:0.75rem; color:var(--muted); flex:1; }
+.res-num { font-size:0.65rem; color:var(--muted); letter-spacing:1px; }
+.copy-btn { margin-left:4px; background:transparent; border:1px solid var(--border); border-radius:6px;
+  padding:3px 10px; font-size:0.62rem; color:var(--muted); cursor:pointer; font-family:'Space Mono',monospace; transition:all 0.2s; }
+.copy-btn:hover { color:var(--teal); border-color:var(--teal); }
+
+/* Equation display */
+.res-eq { padding:24px 22px 18px; font-family:'Syne',sans-serif;
+  font-size:clamp(1rem,3vw,1.5rem); font-weight:700; text-align:center; line-height:1.6; word-break:break-all; }
+.coeff { color:var(--yellow); font-size:1.05em; }
+.plus  { color:var(--muted); margin:0 8px; }
+.arrow { color:var(--teal); margin:0 12px; text-shadow:0 0 12px var(--teal); }
+.compound { color:var(--text); }
+.precipitate { color:var(--orange); }
+.gas-symbol  { color:var(--cyan); }
+
+/* Type badge */
+.type-badge-row { display:flex; justify-content:center; gap:8px; flex-wrap:wrap; padding:0 22px 16px; }
+.type-badge { padding:4px 14px; border-radius:100px; font-size:0.68rem; letter-spacing:1px; font-weight:700; }
+.type-synthesis    { background:rgba(0,220,180,0.12); color:var(--teal);   border:1px solid rgba(0,220,180,0.3); }
+.type-decomp       { background:rgba(255,71,87,0.1);  color:var(--red);    border:1px solid rgba(255,71,87,0.3); }
+.type-displacement { background:rgba(168,85,247,0.1); color:var(--purple); border:1px solid rgba(168,85,247,0.3); }
+.type-neutralize   { background:rgba(59,130,246,0.1); color:var(--blue);   border:1px solid rgba(59,130,246,0.3); }
+.type-combustion   { background:rgba(255,107,53,0.12);color:var(--orange); border:1px solid rgba(255,107,53,0.3); }
+.type-redox        { background:rgba(236,72,153,0.1); color:var(--pink);   border:1px solid rgba(236,72,153,0.3); }
+.type-special      { background:rgba(255,209,102,0.1);color:var(--yellow); border:1px solid rgba(255,209,102,0.3); }
+.cond-badge { background:rgba(90,122,112,0.15); color:var(--muted); border:1px solid rgba(90,122,112,0.3); padding:4px 14px; border-radius:100px; font-size:0.68rem; letter-spacing:1px; }
+
+/* Explanation block */
+.explain-block { margin:0 20px 20px; }
+.explain-section { background:var(--surface2); border:1px solid rgba(0,220,180,0.08); border-radius:10px; padding:16px 18px; margin-bottom:10px; }
+.explain-title { font-size:0.62rem; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-bottom:10px; display:flex; align-items:center; gap:7px; }
+.explain-title::before { content:''; width:10px; height:1px; background:var(--muted); }
+.explain-text { font-size:0.82rem; color:var(--text); line-height:1.7; }
+.explain-text b { color:var(--teal); }
+.explain-text .hl-orange { color:var(--orange); font-weight:700; }
+.explain-text .hl-red    { color:var(--red); font-weight:700; }
+.explain-text .hl-yellow { color:var(--yellow); font-weight:700; }
+.explain-text .hl-purple { color:var(--purple); font-weight:700; }
+
+/* Oxidation state change table */
+.ox-table { width:100%; border-collapse:separate; border-spacing:0; font-size:0.75rem; border-radius:8px; overflow:hidden; border:1px solid rgba(0,220,180,0.1); }
+.ox-table th { background:rgba(0,220,180,0.07); color:var(--teal); padding:7px 12px; text-align:center; font-weight:700; border-bottom:1px solid rgba(0,220,180,0.1); }
+.ox-table td { padding:7px 12px; text-align:center; color:var(--text); border-bottom:1px solid rgba(255,255,255,0.04); }
+.ox-table tr:last-child td { border-bottom:none; }
+.ox-up   { color:var(--red);  }
+.ox-down { color:var(--teal); }
+.ox-same { color:var(--muted); }
+.ox-arrow { color:var(--yellow); margin:0 4px; }
+
+/* Warning box */
+.warn-box { margin:0 20px 20px; background:rgba(255,209,102,0.06); border:1px solid rgba(255,209,102,0.25); border-radius:10px; padding:14px 18px; }
+.warn-box-title { font-size:0.62rem; letter-spacing:2px; color:var(--yellow); text-transform:uppercase; margin-bottom:8px; }
+.warn-box-text { font-size:0.8rem; color:var(--text); line-height:1.65; }
+.warn-box-text b { color:var(--yellow); }
+
+/* No-reaction box */
+.no-rx-box { padding:28px; text-align:center; color:var(--muted); }
+.no-rx-icon { font-size:2rem; margin-bottom:10px; }
+.no-rx-text { font-size:0.85rem; line-height:1.6; }
+
+/* Error msg */
+.err-msg { padding:22px; color:var(--red); text-align:center; font-size:0.85rem; }
+
+/* Empty state */
+.empty-state { text-align:center; padding:60px 20px; color:var(--muted); }
+.empty-icon  { font-size:3rem; margin-bottom:12px; opacity:0.35; }
+.empty-text  { font-size:0.82rem; letter-spacing:1px; }
+
+@keyframes fadeDown { from{opacity:0;transform:translateY(-18px)} to{opacity:1;transform:none} }
+@keyframes fadeUp   { from{opacity:0;transform:translateY(16px)}  to{opacity:1;transform:none} }
+@keyframes slideIn  { from{opacity:0;transform:translateX(-10px)} to{opacity:1;transform:none} }
+
+.spinner { display:inline-block; width:13px; height:13px; border:2px solid rgba(8,12,18,0.3); border-top-color:#080c12; border-radius:50%; animation:rotate 0.6s linear infinite; vertical-align:middle; margin-right:6px; }
+@keyframes rotate { to{transform:rotate(360deg)} }
+
+@media(max-width:520px){ .wrapper{padding:20px 12px 60px;} .input-zone{padding:18px 14px;} }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="hex-grid" id="hexGrid"></div>
+
+<!-- NAV -->
+<nav class="nav-tabs">
+  <div class="nav-brand">⚗ PTHH TOOLS</div>
+  <a class="nav-tab" href="Chembalancer.html">⚖ Cân Bằng</a>
+  <a class="nav-tab active" href="reaction-predictor.html">🔬 Dự Đoán</a>
+</nav>
+
+<div class="wrapper">
+  <header>
+    <span class="header-icon"></span>
+    <h1>Viết Phản Ứng</h1>
+    <p class="subtitle">DESIGN BY WBIU</p>
+    <div class="badge-row">
+      <span class="badge">CÁC PHẢN ỨNG CƠ BẢN</span>
+      <span class="badge">CÓ XỬ LÝ NGOẠI LỆ</span>
+      <span class="badge">GIẢI THÍCH PHƯƠNG TRÌNH</span>
+    </div>
+  </header>
+
+  <div class="input-zone">
+    <div class="zone-label">Nhập các chất phản ứng</div>
+    <div class="reactant-grid" id="reactantGrid">
+      <div class="reactant-input-wrap">
+        <div class="reactant-label">Chất 1</div>
+        <input class="r-input" id="r0" placeholder="VD: SO3" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="reactant-input-wrap">
+        <div class="reactant-label">Chất 2</div>
+        <input class="r-input" id="r1" placeholder="VD: H2O" autocomplete="off" spellcheck="false">
+      </div>
+    </div>
+    <button class="add-reactant-btn" id="addReactantBtn" onclick="addReactantField()">+ Thêm chất thứ 3</button>
+
+    <div class="zone-label" style="margin-top:4px">Điều kiện phản ứng</div>
+    <div class="condition-row" id="condRow">
+      <span class="cond-chip active" data-cond="auto" onclick="selectCond(this)">Tự động</span>
+      <span class="cond-chip" data-cond="thuong" onclick="selectCond(this)">Thường</span>
+      <span class="cond-chip" data-cond="nhiet" onclick="selectCond(this)">Đun nóng</span>
+      <span class="cond-chip" data-cond="nhiet_cao" onclick="selectCond(this)">Nhiệt độ cao</span>
+      <span class="cond-chip" data-cond="dung_dich" onclick="selectCond(this)">Dung dịch</span>
+      <span class="cond-chip" data-cond="dac" onclick="selectCond(this)">Axit đặc</span>
+      <span class="cond-chip" data-cond="sang" onclick="selectCond(this)">Ánh sáng</span>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-predict" id="predictBtn" onclick="doPredict()">Viết sản phẩm</button>
+      <button class="btn-clear-inputs" onclick="clearAll()">✕ Xoá</button>
+    </div>
+
+    <div class="ex-label">Thử ngay →</div>
+    <div class="pills" id="exPills"></div>
+  </div>
+
+  <div id="resultSection" style="display:none">
+    <div id="resultCards"></div>
+  </div>
+  <div class="empty-state" id="emptyState">
+    <div class="empty-text">Nhập chất phản ứng và nhấn Dự đoán<br>để xem sản phẩm và giải thích</div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════
+//  REACTION DATABASE
+//  Mỗi entry: { key, reactants, products, type, condition,
+//               balanced, explanation, oxidation, warnings, noReaction }
+// ══════════════════════════════════════════════════════════
+
+const REACTION_DB = [
+
+  // ── OXIT AXIT + H2O → AXIT (Anhydrit axit) ─────────────────────
+  { key:'so3_h2o',
+    reactants:['SO3','H2O'], products:['H2SO4'],
+    type:'synthesis', condition:'thuong',
+    balanced:'SO3 + H2O → H2SO4',
+    explanation: `<b>SO₃</b> là <span class="hl-orange">anhydrit</span> của axit H₂SO₄ (axit sunfuric).<br>
+    Phân tử SO₃ có S liên kết với 3 nguyên tử O (S ở số oxi hóa <b>+6</b>).<br>
+    Khi gặp H₂O, một phân tử H₂O thêm vào liên kết với S:<br>
+    → S vẫn giữ số oxi hóa <b>+6</b>, hai nhóm <b>–OH</b> gắn vào S.<br>
+    → Tạo H₂SO₄ (axit mạnh, 2 nhóm –OH quanh S).<br>
+    ⚠️ <span class="hl-red">KHÔNG</span> xuất hiện nhóm SO₄²⁻ từ không khí — SO₄²⁻ chính là SO₃ + O từ H₂O tái cấu trúc.`,
+    warnings: `<b>Lưu ý cấu trúc:</b> Sản phẩm là H₂SO₄, không phải H₂S + O₄ hay bất kỳ tổ hợp ngẫu nhiên nào. Nhóm –SO₄ hình thành do S (từ SO₃) nhận thêm 1 O từ H₂O và 2 nhóm –OH.` },
+
+  { key:'so2_h2o',
+    reactants:['SO2','H2O'], products:['H2SO3'],
+    type:'synthesis', condition:'thuong',
+    balanced:'SO2 + H2O → H2SO3',
+    explanation: `<b>SO₂</b> là anhydrit của H₂SO₃ (axit sunfurơ, axit yếu).<br>
+    S ở số oxi hóa <b>+4</b> trong cả SO₂ lẫn H₂SO₃ — <span class="hl-yellow">không đổi oxi hóa</span>.<br>
+    H₂SO₃ là axit yếu, không bền, dễ bị phân hủy trở lại thành SO₂ + H₂O khi đun.`,
+    warnings:`H₂SO₃ rất kém bền, trong thực tế ít tồn tại dạng tinh khiết.` },
+
+  { key:'co2_h2o',
+    reactants:['CO2','H2O'], products:['H2CO3'],
+    type:'synthesis', condition:'thuong',
+    balanced:'CO2 + H2O → H2CO3',
+    explanation:`<b>CO₂</b> là anhydrit của H₂CO₃ (axit cacbonic, axit rất yếu).<br>
+    C giữ số oxi hóa <b>+4</b>. H₂CO₃ không bền, dễ phân hủy → CO₂↑ + H₂O.<br>
+    Đây là lý do nước ngọt có gas sủi bọt khi mở nắp.`,
+    warnings:`H₂CO₃ chỉ tồn tại trong dung dịch, không tách được dạng tinh khiết.` },
+
+  { key:'p2o5_h2o',
+    reactants:['P2O5','H2O'], products:['H3PO4'],
+    type:'synthesis', condition:'thuong',
+    balanced:'P2O5 + 3H2O → 2H3PO4',
+    explanation:`<b>P₂O₅</b> là anhydrit của H₃PO₄ (axit photphoric).<br>
+    P ở số oxi hóa <b>+5</b>. Mỗi P nhận thêm 3 nhóm –OH từ H₂O.<br>
+    Phản ứng tỏa nhiệt mạnh, P₂O₅ hút ẩm rất mạnh.` },
+
+  { key:'n2o5_h2o',
+    reactants:['N2O5','H2O'], products:['HNO3'],
+    type:'synthesis', condition:'thuong',
+    balanced:'N2O5 + H2O → 2HNO3',
+    explanation:`<b>N₂O₅</b> là anhydrit của HNO₃ (axit nitric).<br>
+    N ở số oxi hóa <b>+5</b>. Tạo thành 2 phân tử HNO₃ mỗi N giữ 1 nhóm –OH và 2 O không liên kết H.` },
+
+  { key:'no2_h2o',
+    reactants:['NO2','H2O'], products:['HNO3','HNO2'],
+    type:'special', condition:'thuong',
+    balanced:'2NO2 + H2O → HNO3 + HNO2',
+    explanation:`Đây là phản ứng <span class="hl-orange">tự oxi hóa – khử (dị ly)</span>:<br>
+    - 1 phân tử NO₂ bị <b>oxi hóa</b>: N đi từ <b>+4</b> → <b>+5</b> (thành HNO₃)<br>
+    - 1 phân tử NO₂ bị <b>khử</b>: N đi từ <b>+4</b> → <b>+3</b> (thành HNO₂)<br>
+    Hoặc trong điều kiện dư O₂: 4NO₂ + O₂ + 2H₂O → 4HNO₃`,
+    oxidation:[
+      {elem:'N (oxi hóa)', from:'+4', to:'+5', change:'ox-up'},
+      {elem:'N (khử)',     from:'+4', to:'+3', change:'ox-down'},
+    ],
+    warnings:`Phản ứng này KHÔNG cho ra đơn giản HNO₂ một mình — đây là dị ly đồng thời tạo cả HNO₃ và HNO₂. Nếu có dư O₂: chỉ tạo HNO₃.` },
+
+  { key:'cao_h2o',
+    reactants:['CaO','H2O'], products:['Ca(OH)2'],
+    type:'synthesis', condition:'thuong',
+    balanced:'CaO + H2O → Ca(OH)2',
+    explanation:`<b>CaO</b> (vôi sống) là oxit bazơ, anhydrit của Ca(OH)₂ (vôi tôi).<br>
+    Ca ở số oxi hóa <b>+2</b> — <span class="hl-yellow">không đổi</span>.<br>
+    Phản ứng tỏa nhiệt mạnh (thủy hóa), tạo Ca(OH)₂ dạng bột trắng.` },
+
+  { key:'na2o_h2o',
+    reactants:['Na2O','H2O'], products:['NaOH'],
+    type:'synthesis', condition:'thuong',
+    balanced:'Na2O + H2O → 2NaOH',
+    explanation:`<b>Na₂O</b> là oxit bazơ của Na. Na giữ số oxi hóa <b>+1</b>.<br>
+    Tạo dung dịch NaOH kiềm mạnh.` },
+
+  { key:'k2o_h2o',
+    reactants:['K2O','H2O'], products:['KOH'],
+    type:'synthesis', condition:'thuong',
+    balanced:'K2O + H2O → 2KOH',
+    explanation:`<b>K₂O</b> là oxit bazơ của K. Tương tự Na₂O, K ở số oxi hóa <b>+1</b>.` },
+
+  { key:'bao_h2o',
+    reactants:['BaO','H2O'], products:['Ba(OH)2'],
+    type:'synthesis', condition:'thuong',
+    balanced:'BaO + H2O → Ba(OH)2',
+    explanation:`<b>BaO</b> là oxit bazơ của Ba (+2). Tạo Ba(OH)₂ tan tốt, là bazơ mạnh.` },
+
+  // ── KIM LOẠI + O2 ────────────────────────────────────────────────
+  { key:'fe_o2_thuong',
+    reactants:['Fe','O2'], products:['Fe2O3'],
+    type:'synthesis', condition:'thuong',
+    balanced:'4Fe + 3O2 → 2Fe2O3',
+    explanation:`Sắt phản ứng với O₂ ở điều kiện thường (hoặc ẩm ướt) tạo <b>gỉ sắt Fe₂O₃</b>.<br>
+    Fe bị <span class="hl-red">oxi hóa</span>: Fe⁰ → Fe<sup>+3</sup>; O₂ bị <span class="hl-teal">khử</span>: O⁰ → O<sup>-2</sup>.`,
+    oxidation:[
+      {elem:'Fe',from:'0',to:'+3',change:'ox-up'},
+      {elem:'O', from:'0',to:'-2',change:'ox-down'},
+    ],
+    warnings:`Khi đốt Fe trong O₂ nguyên chất (sáng chói, tia lửa), tạo <b>Fe₃O₄</b> (oxit sắt từ) chứ không phải Fe₂O₃!` },
+
+  { key:'fe_o2_chay',
+    reactants:['Fe','O2'], products:['Fe3O4'],
+    type:'synthesis', condition:'nhiet_cao',
+    balanced:'3Fe + 2O2 → Fe3O4',
+    explanation:`Đốt Fe cháy trong O₂ (nhiệt độ cao) tạo <b>Fe₃O₄</b> — oxit sắt từ (hỗn hợp Fe²⁺ và Fe³⁺).<br>
+    Fe₃O₄ = FeO·Fe₂O₃, Fe ở 2 trạng thái oxi hóa +2 và +3 cùng lúc.`,
+    oxidation:[
+      {elem:'Fe',from:'0',to:'+8/3 (tb)',change:'ox-up'},
+      {elem:'O', from:'0',to:'-2',change:'ox-down'},
+    ] },
+
+  { key:'mg_o2',
+    reactants:['Mg','O2'], products:['MgO'],
+    type:'synthesis', condition:'nhiet',
+    balanced:'2Mg + O2 → 2MgO',
+    explanation:`Mg cháy trong O₂ với ngọn lửa trắng chói. Mg bị oxi hóa Mg⁰ → Mg<sup>+2</sup>.`,
+    oxidation:[{elem:'Mg',from:'0',to:'+2',change:'ox-up'},{elem:'O',from:'0',to:'-2',change:'ox-down'}] },
+
+  { key:'al_o2',
+    reactants:['Al','O2'], products:['Al2O3'],
+    type:'synthesis', condition:'nhiet',
+    balanced:'4Al + 3O2 → 2Al2O3',
+    explanation:`Al cháy sáng chói. Tạo lớp Al₂O₃ mỏng thụ động hóa bề mặt Al trong không khí.`,
+    oxidation:[{elem:'Al',from:'0',to:'+3',change:'ox-up'},{elem:'O',from:'0',to:'-2',change:'ox-down'}] },
+
+  { key:'na_o2_thuong',
+    reactants:['Na','O2'], products:['Na2O2'],
+    type:'synthesis', condition:'nhiet',
+    balanced:'2Na + O2 → Na2O2',
+    explanation:`Na cháy trong O₂ (không khí khô) tạo <b>Na₂O₂</b> (natri peoxit).<br>
+    Ở nhiệt độ thường Na + không khí ẩm → Na₂O (sau đó Na₂O + H₂O → NaOH).`,
+    warnings:`Sản phẩm chính khi Na CHÁY trong O₂ là Na₂O₂ (peoxit), không phải Na₂O! Na₂O chỉ tạo khi ít O₂.` },
+
+  { key:'cu_o2',
+    reactants:['Cu','O2'], products:['CuO'],
+    type:'synthesis', condition:'nhiet',
+    balanced:'2Cu + O2 → 2CuO',
+    explanation:`Cu cháy tạo CuO đen. Cu⁰ → Cu<sup>+2</sup>.`,
+    oxidation:[{elem:'Cu',from:'0',to:'+2',change:'ox-up'},{elem:'O',from:'0',to:'-2',change:'ox-down'}] },
+
+  { key:'s_o2',
+    reactants:['S','O2'], products:['SO2'],
+    type:'synthesis', condition:'nhiet',
+    balanced:'S + O2 → SO2',
+    explanation:`S cháy trong O₂ tạo SO₂ (khí mùi hắc). S⁰ → S<sup>+4</sup>.`,
+    oxidation:[{elem:'S',from:'0',to:'+4',change:'ox-up'},{elem:'O',from:'0',to:'-2',change:'ox-down'}] },
+
+  { key:'c_o2',
+    reactants:['C','O2'], products:['CO2'],
+    type:'combustion', condition:'nhiet',
+    balanced:'C + O2 → CO2',
+    explanation:`C cháy hoàn toàn trong O₂ dư tạo CO₂. C⁰ → C<sup>+4</sup>.`,
+    oxidation:[{elem:'C',from:'0',to:'+4',change:'ox-up'},{elem:'O',from:'0',to:'-2',change:'ox-down'}] },
+
+  { key:'c_o2_thieu',
+    reactants:['C','O2'], products:['CO'],
+    type:'combustion', condition:'nhiet_cao',
+    balanced:'2C + O2 → 2CO',
+    explanation:`C cháy trong O₂ thiếu (nhiệt độ cao) tạo CO (cacbon monooxit, khí độc).<br>
+    C⁰ → C<sup>+2</sup>. CO rất độc, ngăn chặn hemoglobin gắn O₂.`,
+    warnings:`Cần phân biệt: O₂ dư → CO₂; O₂ thiếu hoặc nhiệt cao → CO.` },
+
+  // ── KIM LOẠI + AXIT ──────────────────────────────────────────────
+  { key:'fe_hcl_loang',
+    reactants:['Fe','HCl'], products:['FeCl2','H2'],
+    type:'displacement', condition:'dung_dich',
+    balanced:'Fe + 2HCl → FeCl2 + H2↑',
+    explanation:`Fe tác dụng HCl loãng → Fe<sup>+2</sup> (FeCl₂), giải phóng H₂.<br>
+    ⚠️ Fe chỉ lên <b>+2</b> với HCl/H₂SO₄ loãng. Cần HNO₃ hoặc H₂SO₄ đặc để lên +3.`,
+    oxidation:[{elem:'Fe',from:'0',to:'+2',change:'ox-up'},{elem:'H',from:'+1',to:'0',change:'ox-down'}],
+    warnings:`Fe + HCl loãng → FeCl₂ (Fe²⁺), KHÔNG phải FeCl₃ (Fe³⁺)! HCl là axit thường, không đủ mạnh để oxi hóa Fe lên +3.` },
+
+  { key:'fe_h2so4_loang',
+    reactants:['Fe','H2SO4'], products:['FeSO4','H2'],
+    type:'displacement', condition:'dung_dich',
+    balanced:'Fe + H2SO4 (loãng) → FeSO4 + H2↑',
+    explanation:`Fe + H₂SO₄ loãng → FeSO₄ (Fe²⁺) + H₂. Tương tự phản ứng với HCl loãng.`,
+    oxidation:[{elem:'Fe',from:'0',to:'+2',change:'ox-up'},{elem:'H',from:'+1',to:'0',change:'ox-down'}],
+    warnings:`Fe + H₂SO₄ LOÃNG → Fe²⁺ (FeSO₄). Fe + H₂SO₄ ĐẶC nóng → Fe³⁺ (Fe₂(SO₄)₃) + SO₂ + H₂O.` },
+
+  { key:'fe_h2so4_dac',
+    reactants:['Fe','H2SO4'], products:['Fe2(SO4)3','SO2','H2O'],
+    type:'redox', condition:'dac',
+    balanced:'2Fe + 6H2SO4 (đặc, nóng) → Fe2(SO4)3 + 3SO2↑ + 6H2O',
+    explanation:`H₂SO₄ đặc nóng là chất oxi hóa mạnh, oxi hóa Fe lên <b>+3</b>:<br>
+    Fe⁰ → Fe<sup>+3</sup> (mất 3e). S trong H₂SO₄ (+6) bị khử → SO₂ (+4).<br>
+    ⚠️ Ở nhiệt độ thường, H₂SO₄ đặc <span class="hl-red">thụ động hóa</span> Fe — Fe không tan.`,
+    oxidation:[
+      {elem:'Fe',from:'0',to:'+3',change:'ox-up'},
+      {elem:'S (H₂SO₄)',from:'+6',to:'+4 (SO₂)',change:'ox-down'},
+    ],
+    warnings:`Fe, Al, Cr bị THỤNG ĐỘNG HÓA bởi H₂SO₄ đặc nguội và HNO₃ đặc nguội — tạo lớp oxit bề mặt bảo vệ, không tan!` },
+
+  { key:'al_h2so4_loang',
+    reactants:['Al','H2SO4'], products:['Al2(SO4)3','H2'],
+    type:'displacement', condition:'dung_dich',
+    balanced:'2Al + 3H2SO4 (loãng) → Al2(SO4)3 + 3H2↑',
+    explanation:`Al tan trong H₂SO₄ loãng. Al⁰ → Al<sup>+3</sup>. H<sup>+1</sup> → H₂.`,
+    oxidation:[{elem:'Al',from:'0',to:'+3',change:'ox-up'},{elem:'H',from:'+1',to:'0',change:'ox-down'}],
+    warnings:`Al + H₂SO₄ ĐẶC NGUỘI: thụ động hóa, không phản ứng!` },
+
+  { key:'cu_h2so4_dac',
+    reactants:['Cu','H2SO4'], products:['CuSO4','SO2','H2O'],
+    type:'redox', condition:'dac',
+    balanced:'Cu + 2H2SO4 (đặc, nóng) → CuSO4 + SO2↑ + 2H2O',
+    explanation:`Cu không tác dụng HCl hay H₂SO₄ loãng.<br>
+    Nhưng H₂SO₄ đặc nóng oxi hóa được Cu: Cu⁰ → Cu<sup>+2</sup>.<br>
+    S (+6) bị khử → SO₂ (+4). Dung dịch chuyển màu xanh (CuSO₄).`,
+    oxidation:[
+      {elem:'Cu',from:'0',to:'+2',change:'ox-up'},
+      {elem:'S',from:'+6',to:'+4',change:'ox-down'},
+    ],
+    warnings:`Cu KHÔNG phản ứng với HCl hoặc H₂SO₄ loãng (Cu kém hoạt động hơn H).` },
+
+  { key:'cu_hno3_dac',
+    reactants:['Cu','HNO3'], products:['Cu(NO3)2','NO2','H2O'],
+    type:'redox', condition:'dac',
+    balanced:'Cu + 4HNO3 (đặc) → Cu(NO3)2 + 2NO2↑ + 2H2O',
+    explanation:`HNO₃ đặc oxi hóa Cu: Cu⁰ → Cu<sup>+2</sup>.<br>
+    N (+5 trong HNO₃) bị khử → NO₂ (+4) — khí nâu đỏ độc.<br>
+    Dung dịch xanh lam do Cu(NO₃)₂.`,
+    oxidation:[
+      {elem:'Cu',from:'0',to:'+2',change:'ox-up'},
+      {elem:'N (HNO₃)',from:'+5',to:'+4 (NO₂)',change:'ox-down'},
+    ] },
+
+  { key:'cu_hno3_loang',
+    reactants:['Cu','HNO3'], products:['Cu(NO3)2','NO','H2O'],
+    type:'redox', condition:'dung_dich',
+    balanced:'3Cu + 8HNO3 (loãng) → 3Cu(NO3)2 + 2NO↑ + 4H2O',
+    explanation:`HNO₃ loãng khử đến NO (+2) thay vì NO₂ (+4).<br>
+    Cu⁰ → Cu<sup>+2</sup>; N<sup>+5</sup> → N<sup>+2</sup> (NO, khí không màu hóa nâu trong không khí).`,
+    oxidation:[
+      {elem:'Cu',from:'0',to:'+2',change:'ox-up'},
+      {elem:'N',from:'+5',to:'+2 (NO)',change:'ox-down'},
+    ],
+    warnings:`HNO₃ đặc → NO₂ (nâu đỏ); HNO₃ loãng → NO (không màu). Hai sản phẩm khí khác nhau!` },
+
+  { key:'fe_hno3_loang',
+    reactants:['Fe','HNO3'], products:['Fe(NO3)3','NO','H2O'],
+    type:'redox', condition:'dung_dich',
+    balanced:'Fe + 4HNO3 (loãng) → Fe(NO3)3 + NO↑ + 2H2O',
+    explanation:`HNO₃ loãng dư oxi hóa Fe lên <b>+3</b> (không phải +2!).<br>
+    Fe⁰ → Fe<sup>+3</sup>; N<sup>+5</sup> → N<sup>+2</sup> (NO).<br>
+    Nếu Fe dư: Fe + 2Fe(NO₃)₃ → 3Fe(NO₃)₂ (Fe bị khử từ +3 → +2).`,
+    oxidation:[
+      {elem:'Fe',from:'0',to:'+3',change:'ox-up'},
+      {elem:'N',from:'+5',to:'+2 (NO)',change:'ox-down'},
+    ],
+    warnings:`Fe + HNO₃ → Fe³⁺, không phải Fe²⁺! (HNO₃ đủ mạnh để oxi hóa Fe lên +3). Ngoại lệ: Fe dư → sản phẩm là Fe(NO₃)₂.` },
+
+  { key:'zn_hcl',
+    reactants:['Zn','HCl'], products:['ZnCl2','H2'],
+    type:'displacement', condition:'dung_dich',
+    balanced:'Zn + 2HCl → ZnCl2 + H2↑',
+    explanation:`Zn hoạt động hơn H trong dãy hoạt động kim loại, đẩy H ra khỏi axit.<br>
+    Zn⁰ → Zn<sup>+2</sup>; H<sup>+1</sup> → H₂.`,
+    oxidation:[{elem:'Zn',from:'0',to:'+2',change:'ox-up'},{elem:'H',from:'+1',to:'0',change:'ox-down'}] },
+
+  { key:'mg_hcl',
+    reactants:['Mg','HCl'], products:['MgCl2','H2'],
+    type:'displacement', condition:'dung_dich',
+    balanced:'Mg + 2HCl → MgCl2 + H2↑',
+    explanation:`Mg rất hoạt động (Mg² → Mg⁺²), phản ứng mạnh với HCl.`,
+    oxidation:[{elem:'Mg',from:'0',to:'+2',change:'ox-up'},{elem:'H',from:'+1',to:'0',change:'ox-down'}] },
+
+  { key:'al_hcl',
+    reactants:['Al','HCl'], products:['AlCl3','H2'],
+    type:'displacement', condition:'dung_dich',
+    balanced:'2Al + 6HCl → 2AlCl3 + 3H2↑',
+    explanation:`Al⁰ → Al<sup>+3</sup>. Al phản ứng với HCl loãng mạnh.` },
+
+  { key:'na_h2o',
+    reactants:['Na','H2O'], products:['NaOH','H2'],
+    type:'displacement', condition:'thuong',
+    balanced:'2Na + 2H2O → 2NaOH + H2↑',
+    explanation:`Na (kim loại kiềm) phản ứng mạnh với nước ngay điều kiện thường:<br>
+    Na⁰ → Na<sup>+1</sup>; H<sup>+1</sup> → H₂ (H⁰). Tỏa nhiệt mạnh, H₂ có thể bốc cháy.`,
+    oxidation:[{elem:'Na',from:'0',to:'+1',change:'ox-up'},{elem:'H',from:'+1',to:'0',change:'ox-down'}] },
+
+  { key:'k_h2o',
+    reactants:['K','H2O'], products:['KOH','H2'],
+    type:'displacement', condition:'thuong',
+    balanced:'2K + 2H2O → 2KOH + H2↑',
+    explanation:`K phản ứng mạnh hơn Na với nước. Thường bốc lửa ngay lập tức.`,
+    oxidation:[{elem:'K',from:'0',to:'+1',change:'ox-up'},{elem:'H',from:'+1',to:'0',change:'ox-down'}] },
+
+  { key:'ca_h2o',
+    reactants:['Ca','H2O'], products:['Ca(OH)2','H2'],
+    type:'displacement', condition:'thuong',
+    balanced:'Ca + 2H2O → Ca(OH)2 + H2↑',
+    explanation:`Ca phản ứng chậm hơn Na/K với nước ở nhiệt độ thường, sủi bọt đều.`,
+    oxidation:[{elem:'Ca',from:'0',to:'+2',change:'ox-up'},{elem:'H',from:'+1',to:'0',change:'ox-down'}] },
+
+  // ── TRUNG HÒA ───────────────────────────────────────────────────
+  { key:'hcl_naoh',
+    reactants:['HCl','NaOH'], products:['NaCl','H2O'],
+    type:'neutralize', condition:'dung_dich',
+    balanced:'HCl + NaOH → NaCl + H2O',
+    explanation:`Phản ứng trung hòa: ion H⁺ (từ HCl) kết hợp với OH⁻ (từ NaOH) tạo H₂O.<br>
+    Đây là phản ứng <span class="hl-yellow">không có thay đổi số oxi hóa</span> — không phải redox.` },
+
+  { key:'h2so4_naoh',
+    reactants:['H2SO4','NaOH'], products:['Na2SO4','H2O'],
+    type:'neutralize', condition:'dung_dich',
+    balanced:'H2SO4 + 2NaOH → Na2SO4 + 2H2O',
+    explanation:`H₂SO₄ có 2 H⁺, cần 2 NaOH. Muối tạo thành là Na₂SO₄ (natri sunfat).` },
+
+  { key:'h2so4_ba_oh_2',
+    reactants:['H2SO4','Ba(OH)2'], products:['BaSO4','H2O'],
+    type:'neutralize', condition:'dung_dich',
+    balanced:'H2SO4 + Ba(OH)2 → BaSO4↓ + 2H2O',
+    explanation:`Phản ứng đặc biệt: Ba²⁺ + SO₄²⁻ → <b>BaSO₄↓</b> (kết tủa trắng, không tan).<br>
+    Đây là phản ứng dùng để nhận biết ion SO₄²⁻ và Ba²⁺.`,
+    warnings:`BaSO₄ là kết tủa trắng KHÔNG TAN trong axit — khác với BaCO₃ tan trong axit.` },
+
+  { key:'hcl_ca_oh_2',
+    reactants:['HCl','Ca(OH)2'], products:['CaCl2','H2O'],
+    type:'neutralize', condition:'dung_dich',
+    balanced:'2HCl + Ca(OH)2 → CaCl2 + 2H2O',
+    explanation:`Ca(OH)₂ (vôi tôi) có 2 nhóm OH⁻, cần 2 phân tử HCl. Muối CaCl₂.` },
+
+  { key:'h3po4_naoh',
+    reactants:['H3PO4','NaOH'], products:['Na3PO4','H2O'],
+    type:'neutralize', condition:'dung_dich',
+    balanced:'H3PO4 + 3NaOH → Na3PO4 + 3H2O',
+    explanation:`H₃PO₄ có 3 H⁺ (axit 3 nấc), cần 3 NaOH. Tạo muối Na₃PO₄ (trinatri photphat).`,
+    warnings:`Lưu ý axit 3 nấc: Nếu tỉ lệ mol NaOH:H₃PO₄ = 1:1 → NaH₂PO₄; 2:1 → Na₂HPO₄; 3:1 → Na₃PO₄.` },
+
+  { key:'hno3_naoh',
+    reactants:['HNO3','NaOH'], products:['NaNO3','H2O'],
+    type:'neutralize', condition:'dung_dich',
+    balanced:'HNO3 + NaOH → NaNO3 + H2O',
+    explanation:`HNO₃ là axit 1 nấc mạnh. Trung hòa đơn giản tạo NaNO₃.` },
+
+  // ── OXI AXIT + OXIT BAZƠ ─────────────────────────────────────────
+  { key:'cao_co2',
+    reactants:['CaO','CO2'], products:['CaCO3'],
+    type:'synthesis', condition:'nhiet',
+    balanced:'CaO + CO2 → CaCO3',
+    explanation:`CaO (oxit bazơ) + CO₂ (oxit axit) → CaCO₃ (muối cacbonat).<br>
+    Phản ứng ngược với nung CaCO₃.` },
+
+  { key:'cao_so3',
+    reactants:['CaO','SO3'], products:['CaSO4'],
+    type:'synthesis', condition:'thuong',
+    balanced:'CaO + SO3 → CaSO4',
+    explanation:`CaO (bazơ) + SO₃ (axit) → CaSO₄ (thạch cao khan).` },
+
+  { key:'na2o_co2',
+    reactants:['Na2O','CO2'], products:['Na2CO3'],
+    type:'synthesis', condition:'thuong',
+    balanced:'Na2O + CO2 → Na2CO3',
+    explanation:`Na₂O là oxit bazơ, CO₂ là oxit axit. Tạo muối Na₂CO₃.` },
+
+  // ── PHÂN HỦY ────────────────────────────────────────────────────
+  { key:'caco3_phan_huy',
+    reactants:['CaCO3'], products:['CaO','CO2'],
+    type:'decomp', condition:'nhiet_cao',
+    balanced:'CaCO3 → CaO + CO2↑',
+    explanation:`Nung CaCO₃ ở ~900°C → CaO (vôi sống) + CO₂.<br>
+    Đây là cơ sở của sản xuất xi măng và vôi công nghiệp.` },
+
+  { key:'kmno4_phan_huy',
+    reactants:['KMnO4'], products:['K2MnO4','MnO2','O2'],
+    type:'decomp', condition:'nhiet',
+    balanced:'2KMnO4 → K2MnO4 + MnO2 + O2↑',
+    explanation:`Đun nóng KMnO₄ → phân hủy tạo O₂.<br>
+    Mn bị <span class="hl-orange">dị ly</span>: Mn<sup>+7</sup> → Mn<sup>+6</sup> (K₂MnO₄) và Mn<sup>+4</sup> (MnO₂).<br>
+    Phản ứng phòng thí nghiệm điều chế O₂.`,
+    oxidation:[
+      {elem:'Mn (oxi hóa)',from:'+7',to:'+6',change:'ox-down'},
+      {elem:'Mn (khử)',from:'+7',to:'+4',change:'ox-down'},
+    ] },
+
+  { key:'h2o2_phan_huy',
+    reactants:['H2O2'], products:['H2O','O2'],
+    type:'decomp', condition:'nhiet',
+    balanced:'2H2O2 → 2H2O + O2↑',
+    explanation:`H₂O₂ (nước oxi già) không bền, phân hủy tạo H₂O và O₂.<br>
+    MnO₂ làm xúc tác tăng tốc độ. O trong H₂O₂ ở số oxi hóa -1 (bất thường).`,
+    oxidation:[
+      {elem:'O (-1→-2)',from:'-1',to:'-2',change:'ox-down'},
+      {elem:'O (-1→0)',from:'-1',to:'0',change:'ox-up'},
+    ],
+    warnings:`Đây là phản ứng dị ly oxi: O⁻¹ → O⁻² (khử) và O⁻¹ → O⁰ (oxi hóa).` },
+
+  { key:'kclo3_phan_huy',
+    reactants:['KClO3'], products:['KCl','O2'],
+    type:'decomp', condition:'nhiet',
+    balanced:'2KClO3 → 2KCl + 3O2↑',
+    explanation:`Đun nóng KClO₃ (có MnO₂ xúc tác) → tạo O₂ phòng thí nghiệm.<br>
+    Cl<sup>+5</sup> → Cl<sup>-1</sup>; O<sup>-2</sup> → O₂ (O⁰).`,
+    oxidation:[
+      {elem:'Cl',from:'+5',to:'-1',change:'ox-down'},
+      {elem:'O',from:'-2',to:'0',change:'ox-up'},
+    ] },
+
+  { key:'cu_oh_2_phan_huy',
+    reactants:['Cu(OH)2'], products:['CuO','H2O'],
+    type:'decomp', condition:'nhiet',
+    balanced:'Cu(OH)2 → CuO + H2O',
+    explanation:`Đun nóng Cu(OH)₂ (xanh lơ) → CuO (đen) + H₂O.<br>
+    Đây là phản ứng phân hủy bazơ không tan tạo oxit.` },
+
+  { key:'fe_oh_3_phan_huy',
+    reactants:['Fe(OH)3'], products:['Fe2O3','H2O'],
+    type:'decomp', condition:'nhiet',
+    balanced:'2Fe(OH)3 → Fe2O3 + 3H2O',
+    explanation:`Đun nóng Fe(OH)₃ (nâu đỏ) → Fe₂O₃ (đỏ nâu) + H₂O.` },
+
+  { key:'ca_oh_2_phan_huy',
+    reactants:['Ca(OH)2'], products:['CaO','H2O'],
+    type:'decomp', condition:'nhiet_cao',
+    balanced:'Ca(OH)2 → CaO + H2O',
+    explanation:`Nung Ca(OH)₂ ở nhiệt độ cao → CaO + H₂O. Phản ứng ngược với vôi tôi.` },
+
+  // ── ĐÁNH CHUYỂN ─────────────────────────────────────────────────
+  { key:'fe_cuso4',
+    reactants:['Fe','CuSO4'], products:['FeSO4','Cu'],
+    type:'displacement', condition:'dung_dich',
+    balanced:'Fe + CuSO4 → FeSO4 + Cu↓',
+    explanation:`Fe đẩy Cu ra khỏi dung dịch CuSO₄ (Fe hoạt động hơn Cu).<br>
+    Fe⁰ → Fe<sup>+2</sup>; Cu<sup>+2</sup> → Cu⁰ (lắng xuống thành đồng đỏ).`,
+    oxidation:[{elem:'Fe',from:'0',to:'+2',change:'ox-up'},{elem:'Cu',from:'+2',to:'0',change:'ox-down'}] },
+
+  { key:'cu_agno3',
+    reactants:['Cu','AgNO3'], products:['Cu(NO3)2','Ag'],
+    type:'displacement', condition:'dung_dich',
+    balanced:'Cu + 2AgNO3 → Cu(NO3)2 + 2Ag↓',
+    explanation:`Cu đẩy Ag ra khỏi AgNO₃ (Cu hoạt động hơn Ag).<br>
+    Cu⁰ → Cu<sup>+2</sup>; Ag<sup>+1</sup> → Ag⁰ (bạc ánh bạc bám lên Cu).`,
+    oxidation:[{elem:'Cu',from:'0',to:'+2',change:'ox-up'},{elem:'Ag',from:'+1',to:'0',change:'ox-down'}] },
+
+  // ── CHÁY HYDROCACBON ─────────────────────────────────────────────
+  { key:'ch4_o2',
+    reactants:['CH4','O2'], products:['CO2','H2O'],
+    type:'combustion', condition:'nhiet',
+    balanced:'CH4 + 2O2 → CO2 + 2H2O',
+    explanation:`Metan (khí thiên nhiên) cháy hoàn toàn → CO₂ + H₂O.<br>
+    C<sup>-4</sup> → C<sup>+4</sup>; H<sup>+1</sup>→H<sup>+1</sup> trong H₂O; O₂ → O<sup>-2</sup>.` },
+
+  { key:'c2h6_o2',
+    reactants:['C2H6','O2'], products:['CO2','H2O'],
+    type:'combustion', condition:'nhiet',
+    balanced:'2C2H6 + 7O2 → 4CO2 + 6H2O',
+    explanation:`Etan cháy hoàn toàn. Công thức tổng quát: CₙH₂ₙ₊₂ + (3n+1)/2 O₂ → nCO₂ + (n+1)H₂O.` },
+
+  { key:'c3h8_o2',
+    reactants:['C3H8','O2'], products:['CO2','H2O'],
+    type:'combustion', condition:'nhiet',
+    balanced:'C3H8 + 5O2 → 3CO2 + 4H2O',
+    explanation:`Propan (bình gas hóa lỏng) cháy hoàn toàn → 3CO₂ + 4H₂O.` },
+
+  { key:'c2h4_o2',
+    reactants:['C2H4','O2'], products:['CO2','H2O'],
+    type:'combustion', condition:'nhiet',
+    balanced:'C2H4 + 3O2 → 2CO2 + 2H2O',
+    explanation:`Eten (anken) cháy hoàn toàn. Công thức CₙH₂ₙ: CₙH₂ₙ + 3n/2 O₂ → nCO₂ + nH₂O.` },
+
+  { key:'c2h2_o2',
+    reactants:['C2H2','O2'], products:['CO2','H2O'],
+    type:'combustion', condition:'nhiet',
+    balanced:'2C2H2 + 5O2 → 4CO2 + 2H2O',
+    explanation:`Axetylen (ankin) cháy. Công thức CₙH₂ₙ₋₂: cháy tỏa nhiệt rất cao.` },
+
+  // ── PHẢN ỨNG ĐẶC BIỆT / KHÔNG PHẢN ỨNG ─────────────────────────
+  { key:'cu_hcl_noreact',
+    reactants:['Cu','HCl'], products:[],
+    type:'special', condition:'thuong',
+    noReaction: true,
+    balanced:'Cu + HCl → Không phản ứng',
+    explanation:`<span class="hl-red">Cu KHÔNG phản ứng với HCl</span> (dù loãng hay đặc)!<br>
+    Cu kém hoạt động hơn H trong dãy hoạt động kim loại — không đẩy được H ra khỏi axit thường.<br>
+    Cu chỉ tan trong HNO₃ hoặc H₂SO₄ đặc nóng (chất oxi hóa mạnh).`,
+    warnings:`Lỗi phổ biến: Học sinh nhầm Cu + HCl → CuCl₂ + H₂. SAI HOÀN TOÀN! Cu không tác dụng HCl/H₂SO₄ loãng.` },
+
+  { key:'au_hcl_noreact',
+    reactants:['Au','HCl'], products:[],
+    type:'special', condition:'thuong',
+    noReaction: true,
+    balanced:'Au + HCl → Không phản ứng',
+    explanation:`Vàng (Au) không tác dụng với HCl, HNO₃ đơn lẻ.<br>
+    Au chỉ tan trong <b>nước cường toan</b> (hỗn hợp 3HCl + HNO₃): tạo phức AuCl₄⁻.`,
+    warnings:`Au và Pt chỉ tan trong nước cường toan (aqua regia).` },
+
+  { key:'al_h2so4_dac_nguoi',
+    reactants:['Al','H2SO4'], products:[],
+    type:'special', condition:'dac',
+    noReaction: true,
+    balanced:'Al + H2SO4 đặc nguội → Thụ động hóa',
+    explanation:`Al bị <span class="hl-orange">thụ động hóa</span> bởi H₂SO₄ đặc nguội.<br>
+    Lớp Al₂O₃ mỏng bền bảo vệ bề mặt, ngăn phản ứng tiếp.<br>
+    <b>Đun nóng</b>: Al + H₂SO₄ đặc → Al₂(SO₄)₃ + SO₂ + H₂O.`,
+    warnings:`Al, Fe, Cr: thụ động hóa với H₂SO₄ đặc NGUỘI và HNO₃ đặc NGUỘI. Đun nóng thì phản ứng bình thường.` },
+
+  // ── OXIT + AXIT ─────────────────────────────────────────────────
+  { key:'cao_hcl',
+    reactants:['CaO','HCl'], products:['CaCl2','H2O'],
+    type:'neutralize', condition:'dung_dich',
+    balanced:'CaO + 2HCl → CaCl2 + 2H2O',
+    explanation:`CaO là oxit bazơ, tác dụng với axit → muối + nước.` },
+
+  { key:'fe2o3_hcl',
+    reactants:['Fe2O3','HCl'], products:['FeCl3','H2O'],
+    type:'neutralize', condition:'dung_dich',
+    balanced:'Fe2O3 + 6HCl → 2FeCl3 + 3H2O',
+    explanation:`Fe₂O₃ là oxit axit Fe³⁺. Tan trong HCl → FeCl₃ (muối sắt III).` },
+
+  { key:'fe2o3_h2so4',
+    reactants:['Fe2O3','H2SO4'], products:['Fe2(SO4)3','H2O'],
+    type:'neutralize', condition:'dung_dich',
+    balanced:'Fe2O3 + 3H2SO4 → Fe2(SO4)3 + 3H2O',
+    explanation:`Fe₂O₃ + H₂SO₄ loãng → Fe₂(SO₄)₃.` },
+
+  // ── MUỐI + AXIT ──────────────────────────────────────────────────
+  { key:'caco3_hcl',
+    reactants:['CaCO3','HCl'], products:['CaCl2','CO2','H2O'],
+    type:'displacement', condition:'dung_dich',
+    balanced:'CaCO3 + 2HCl → CaCl2 + CO2↑ + H2O',
+    explanation:`Axit mạnh (HCl) đẩy axit yếu (H₂CO₃) ra khỏi muối cacbonat.<br>
+    H₂CO₃ không bền → CO₂↑ + H₂O (sủi bọt).` },
+
+  { key:'na2co3_hcl',
+    reactants:['Na2CO3','HCl'], products:['NaCl','CO2','H2O'],
+    type:'displacement', condition:'dung_dich',
+    balanced:'Na2CO3 + 2HCl → 2NaCl + CO2↑ + H2O',
+    explanation:`Na₂CO₃ + HCl mạnh → NaCl + CO₂↑ sủi bọt.` },
+
+  { key:'na2co3_h2so4',
+    reactants:['Na2CO3','H2SO4'], products:['Na2SO4','CO2','H2O'],
+    type:'displacement', condition:'dung_dich',
+    balanced:'Na2CO3 + H2SO4 → Na2SO4 + CO2↑ + H2O',
+    explanation:`H₂SO₄ mạnh đẩy CO₂ ra khỏi Na₂CO₃.` },
+
+  // ── CO2 + DUNG DỊCH KIỀM ────────────────────────────────────────
+  { key:'co2_naoh_1',
+    reactants:['CO2','NaOH'], products:['NaHCO3'],
+    type:'synthesis', condition:'dung_dich',
+    balanced:'CO2 + NaOH → NaHCO3',
+    explanation:`Khi tỉ lệ mol NaOH:CO₂ = 1:1 → chỉ tạo <b>NaHCO₃</b> (muối axit).`,
+    warnings:`Tỉ lệ NaOH:CO₂ quyết định sản phẩm: 1:1 → NaHCO₃; 2:1 → Na₂CO₃; giữa 1-2 → hỗn hợp cả hai.` },
+
+  { key:'co2_naoh_2',
+    reactants:['CO2','NaOH'], products:['Na2CO3','H2O'],
+    type:'synthesis', condition:'dung_dich',
+    balanced:'CO2 + 2NaOH → Na2CO3 + H2O',
+    explanation:`Khi tỉ lệ mol NaOH:CO₂ = 2:1 → tạo <b>Na₂CO₃</b> (muối trung hòa) + H₂O.` },
+
+  { key:'co2_ca_oh_2',
+    reactants:['CO2','Ca(OH)2'], products:['CaCO3','H2O'],
+    type:'synthesis', condition:'dung_dich',
+    balanced:'CO2 + Ca(OH)2 → CaCO3↓ + H2O',
+    explanation:`CO₂ + nước vôi trong → <b>CaCO₃↓ trắng đục</b> (nhận biết CO₂).<br>
+    CO₂ dư: CaCO₃ + CO₂ + H₂O → Ca(HCO₃)₂ tan → dung dịch trong trở lại.`,
+    warnings:`CO₂ dư → CaCO₃ tan: CaCO₃ + CO₂ + H₂O → Ca(HCO₃)₂. Nếu thêm Ca(OH)₂ vào Ca(HCO₃)₂ → CaCO₃ kết tủa trở lại!` },
+
+  // ── NHIỆT NHÔM ────────────────────────────────────────────────────
+  { key:'al_fe2o3',
+    reactants:['Al','Fe2O3'], products:['Al2O3','Fe'],
+    type:'redox', condition:'nhiet_cao',
+    balanced:'2Al + Fe2O3 → Al2O3 + 2Fe',
+    explanation:`Phản ứng nhiệt nhôm (aluminothermy): Al khử Fe₂O₃ ở nhiệt độ rất cao.<br>
+    Al hoạt động mạnh hơn Fe, đẩy Fe ra khỏi oxit.<br>
+    Tỏa nhiệt cực lớn (~3000°C), Fe lỏng chảy xuống → hàn đường ray.`,
+    oxidation:[{elem:'Al',from:'0',to:'+3',change:'ox-up'},{elem:'Fe',from:'+3',to:'0',change:'ox-down'}] },
+
+  { key:'al_cuo',
+    reactants:['Al','CuO'], products:['Al2O3','Cu'],
+    type:'redox', condition:'nhiet_cao',
+    balanced:'2Al + 3CuO → Al2O3 + 3Cu',
+    explanation:`Nhiệt nhôm với CuO. Al khử Cu²⁺ về Cu⁰.`,
+    oxidation:[{elem:'Al',from:'0',to:'+3',change:'ox-up'},{elem:'Cu',from:'+2',to:'0',change:'ox-down'}] },
+
+  // ── ĐIỀU CHẾ ─────────────────────────────────────────────────────
+  { key:'c_co2',
+    reactants:['C','CO2'], products:['CO'],
+    type:'redox', condition:'nhiet_cao',
+    balanced:'C + CO2 → 2CO',
+    explanation:`C khử CO₂ ở nhiệt độ cao (lò cao). Phản ứng Boudouard.<br>
+    C⁰ → C<sup>+2</sup> (CO); C<sup>+4</sup> → C<sup>+2</sup> (CO₂ → CO).`,
+    oxidation:[{elem:'C (C rắn)',from:'0',to:'+2',change:'ox-up'},{elem:'C (CO₂)',from:'+4',to:'+2',change:'ox-down'}] },
+
+  { key:'co_fe2o3',
+    reactants:['CO','Fe2O3'], products:['Fe','CO2'],
+    type:'redox', condition:'nhiet_cao',
+    balanced:'3CO + Fe2O3 → 2Fe + 3CO2',
+    explanation:`CO khử Fe₂O₃ trong lò cao luyện gang.<br>
+    C<sup>+2</sup>(CO) → C<sup>+4</sup>(CO₂); Fe<sup>+3</sup> → Fe⁰.`,
+    oxidation:[{elem:'C (CO)',from:'+2',to:'+4',change:'ox-up'},{elem:'Fe',from:'+3',to:'0',change:'ox-down'}] },
+
+  { key:'h2_fe2o3',
+    reactants:['H2','Fe2O3'], products:['Fe','H2O'],
+    type:'redox', condition:'nhiet_cao',
+    balanced:'3H2 + Fe2O3 → 2Fe + 3H2O',
+    explanation:`H₂ khử Fe₂O₃ ở nhiệt độ cao. H⁰ → H<sup>+1</sup>; Fe<sup>+3</sup> → Fe⁰.`,
+    oxidation:[{elem:'H',from:'0',to:'+1',change:'ox-up'},{elem:'Fe',from:'+3',to:'0',change:'ox-down'}] },
+
+  { key:'h2_cuo',
+    reactants:['H2','CuO'], products:['Cu','H2O'],
+    type:'redox', condition:'nhiet',
+    balanced:'H2 + CuO → Cu + H2O',
+    explanation:`H₂ khử CuO ở nhiệt độ: CuO đen → Cu đỏ.`,
+    oxidation:[{elem:'H',from:'0',to:'+1',change:'ox-up'},{elem:'Cu',from:'+2',to:'0',change:'ox-down'}] },
+
+  // ── KMnO4 oxi hóa ────────────────────────────────────────────────
+  { key:'kmno4_hcl',
+    reactants:['KMnO4','HCl'], products:['KCl','MnCl2','H2O','Cl2'],
+    type:'redox', condition:'dung_dich',
+    balanced:'2KMnO4 + 16HCl → 2KCl + 2MnCl2 + 8H2O + 5Cl2↑',
+    explanation:`KMnO₄ oxi hóa HCl → Cl₂ (điều chế Cl₂ trong phòng thí nghiệm).<br>
+    Mn<sup>+7</sup> → Mn<sup>+2</sup> (nhận 5e); Cl<sup>-1</sup> → Cl₂ (Cl⁰, mất 1e).`,
+    oxidation:[{elem:'Mn',from:'+7',to:'+2',change:'ox-down'},{elem:'Cl (HCl)',from:'-1',to:'0',change:'ox-up'}] },
+
+  // ── AXIT + MUỐI → KẾT TỦA ───────────────────────────────────────
+  { key:'nabr_h2so4_dac',
+    reactants:['NaBr','H2SO4'], products:['NaHSO4','HBr'],
+    type:'displacement', condition:'dac',
+    balanced:'NaBr + H2SO4 (đặc) → NaHSO4 + HBr↑',
+    explanation:`H₂SO₄ đặc đẩy HBr ra khỏi muối NaBr. Nhưng HBr dễ bị oxi hóa tiếp bởi H₂SO₄ đặc → Br₂ + SO₂.`,
+    warnings:`H₂SO₄ đặc có thể oxi hóa tiếp HBr → Br₂ (nâu đỏ). Khác với NaCl + H₂SO₄ đặc chỉ cho HCl.` },
+
+  { key:'nacl_agno3',
+    reactants:['NaCl','AgNO3'], products:['AgCl','NaNO3'],
+    type:'displacement', condition:'dung_dich',
+    balanced:'NaCl + AgNO3 → AgCl↓ + NaNO3',
+    explanation:`Cl⁻ + Ag⁺ → <b>AgCl↓ trắng</b> (không tan trong nước, tan trong NH₃).<br>
+    Dùng nhận biết ion Cl⁻.` },
+
+  { key:'na2so4_bacl2',
+    reactants:['Na2SO4','BaCl2'], products:['BaSO4','NaCl'],
+    type:'displacement', condition:'dung_dich',
+    balanced:'Na2SO4 + BaCl2 → BaSO4↓ + 2NaCl',
+    explanation:`Ba²⁺ + SO₄²⁻ → <b>BaSO₄↓ trắng</b> (không tan trong axit mạnh).<br>
+    Nhận biết ion SO₄²⁻ hoặc Ba²⁺.` },
+
+];
+
+// ── EXAMPLE SET ──────────────────────────────────────────────────────────────
+const EXAMPLES = [
+  {label:'SO3 + H2O', r:['SO3','H2O'], cond:'auto'},
+  {label:'Fe + HCl',  r:['Fe','HCl'],  cond:'dung_dich'},
+  {label:'Fe + H2SO4 đặc', r:['Fe','H2SO4'], cond:'dac'},
+  {label:'Cu + HNO3 đặc',  r:['Cu','HNO3'],  cond:'dac'},
+  {label:'Cu + HCl',  r:['Cu','HCl'],  cond:'auto'},
+  {label:'NO2 + H2O', r:['NO2','H2O'], cond:'auto'},
+  {label:'Na + H2O',  r:['Na','H2O'],  cond:'auto'},
+  {label:'KMnO4 nhiệt', r:['KMnO4'], cond:'nhiet'},
+  {label:'CO2 + Ca(OH)2', r:['CO2','Ca(OH)2'], cond:'dung_dich'},
+  {label:'Al + Fe2O3', r:['Al','Fe2O3'], cond:'nhiet_cao'},
+  {label:'CaCO3 nung', r:['CaCO3'], cond:'nhiet_cao'},
+  {label:'H2O2 phân hủy', r:['H2O2'], cond:'nhiet'},
+];
+
+// ── Render example pills ──────────────────────────────────────────────────────
+const pillCon = document.getElementById('exPills');
+EXAMPLES.forEach(ex => {
+  const p = document.createElement('span');
+  p.className='pill'; p.textContent=ex.label;
+  p.onclick=()=>{ fillExample(ex); doPredict(); };
+  pillCon.appendChild(p);
+});
+
+function fillExample(ex) {
+  // reset to 2 inputs
+  const grid = document.getElementById('reactantGrid');
+  grid.innerHTML='';
+  reactantCount=0; addReactantField(); addReactantField();
+  ex.r.forEach((v,i)=>{ const el=document.getElementById('r'+i); if(el) el.value=v; });
+  // set cond
+  document.querySelectorAll('.cond-chip').forEach(c=>c.classList.remove('active'));
+  const chip=document.querySelector(`[data-cond="${ex.cond}"]`);
+  if(chip){ chip.classList.add('active'); selectedCond=ex.cond; }
+}
+
+// ── State ──────────────────────────────────────────────────────────────────
+let selectedCond='auto';
+let reactantCount=0;
+let resultCount=0;
+
+function selectCond(el) {
+  document.querySelectorAll('.cond-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  selectedCond=el.dataset.cond;
+}
+
+// ── Reactant fields ────────────────────────────────────────────────────────
+function addReactantField() {
+  if(reactantCount>=4) return;
+  const grid=document.getElementById('reactantGrid');
+  const wrap=document.createElement('div');
+  wrap.className='reactant-input-wrap';
+  wrap.id=`rwrap${reactantCount}`;
+  const labels=['Chất 1','Chất 2','Chất 3','Chất 4'];
+  const phs=['VD: SO3','VD: H2O','Chất thứ 3 (nếu có)','Chất thứ 4 (nếu có)'];
+  wrap.innerHTML=`<div class="reactant-label">${labels[reactantCount]}</div>
+  <input class="r-input" id="r${reactantCount}" placeholder="${phs[reactantCount]}" autocomplete="off" spellcheck="false">`;
+  grid.appendChild(wrap);
+  if(reactantCount===0){ wrap.style.gridColumn='1'; }
+  reactantCount++;
+  const btn=document.getElementById('addReactantBtn');
+  if(reactantCount>=4) btn.style.display='none';
+  // Enter key on last
+  document.getElementById(`r${reactantCount-1}`).addEventListener('keydown',e=>{ if(e.key==='Enter') doPredict(); });
+}
+
+function clearAll() {
+  for(let i=0;i<reactantCount;i++){ const el=document.getElementById('r'+i); if(el) el.value=''; }
+  document.getElementById('r0').focus();
+}
+
+// Initialize 2 fields
+addReactantField(); addReactantField();
+
+// ── Normalizer ───────────────────────────────────────────────────────────────
+function norm(s){ return s.trim().replace(/\s+/g,''); }
+
+// Match reactants against DB (order-insensitive, partial condition match)
+function findReaction(reactants, cond) {
+  const rNorm=reactants.map(norm).filter(Boolean).map(s=>s.toLowerCase());
+  if(!rNorm.length) return null;
+
+  let best=null, bestScore=0;
+  for(const rx of REACTION_DB){
+    const rxR=rx.reactants.map(s=>s.toLowerCase());
+    // Check reactants match (order insensitive)
+    if(rxR.length!==rNorm.length) continue;
+    const sortedRx=[...rxR].sort().join('|');
+    const sortedIn=[...rNorm].sort().join('|');
+    if(sortedRx!==sortedIn) continue;
+    // Condition scoring
+    let score=1;
+    if(cond==='auto') score=2;
+    else if(rx.condition===cond) score=4;
+    else if(cond==='dac' && rx.condition==='dac') score=4;
+    else score=2;
+    if(score>bestScore){ bestScore=score; best=rx; }
+  }
+  return best;
+}
+
+// ── Helpers ─────────────────────────────────────────────────────────────────
+function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function fmtEq(balanced){
+  // parse coeff, compound, ↑↓ markers
+  const parts=balanced.split(' ');
+  let html='';
+  let isArrow=false;
+  for(const part of parts){
+    if(part==='→'||part==='->'){ html+=`<span class="arrow">→</span>`; isArrow=true; continue; }
+    if(part==='+') { html+=`<span class="plus"> + </span>`; continue; }
+    if(part==='') continue;
+    const m=part.match(/^(\d+)?([A-Za-z()0-9]+)(↑|↓)?(\(.*\))?$/);
+    if(m){
+      const coeff=m[1]?`<span class="coeff">${m[1]}</span>`:'';
+      let comp=escHtml(m[2]);
+      const marker=m[3]||'';
+      const note=m[4]||'';
+      let markerHtml='';
+      if(marker==='↑') markerHtml=`<span class="gas-symbol">↑</span>`;
+      if(marker==='↓') markerHtml=`<span class="precipitate">↓</span>`;
+      html+=`${coeff}<span class="compound">${comp}</span>${markerHtml}`;
+    } else {
+      html+=escHtml(part);
+    }
+    html+=' ';
+  }
+  return html.trim();
+}
+
+const TYPE_LABELS={
+  synthesis:'Tổng Hợp', decomp:'Phân Hủy', displacement:'Thế',
+  neutralize:'Trung Hòa', combustion:'Đốt Cháy', redox:'Oxi Hóa – Khử', special:'Đặc Biệt'
+};
+const TYPE_CLASS={
+  synthesis:'type-synthesis', decomp:'type-decomp', displacement:'type-displacement',
+  neutralize:'type-neutralize', combustion:'type-combustion', redox:'type-redox', special:'type-special'
+};
+const COND_LABELS={
+  thuong:'Điều kiện thường', nhiet:'Đun nóng (∆)', nhiet_cao:'Nhiệt độ cao',
+  dung_dich:'Dung dịch', dac:'Axit đặc / nóng', sang:'Ánh sáng', auto:''
+};
+
+// ── Main predict ────────────────────────────────────────────────────────────
+function doPredict(){
+  const reactants=[];
+  for(let i=0;i<reactantCount;i++){
+    const v=norm(document.getElementById('r'+i)?.value||'');
+    if(v) reactants.push(v);
+  }
+  if(!reactants.length){ document.getElementById('r0').focus(); return; }
+
+  const btn=document.getElementById('predictBtn');
+  btn.innerHTML='<span class="spinner"></span>Đang dự đoán...';
+  btn.disabled=true;
+
+  setTimeout(()=>{
+    resultCount++;
+    const rx=findReaction(reactants, selectedCond);
+    const card=document.createElement('div');
+
+    if(!rx){
+      card.className='res-card warn-card';
+      card.innerHTML=`
+        <div class="res-header">
+          <div class="res-dot"></div>
+          <div class="res-title">${reactants.join(' + ')}</div>
+          <div class="res-num">#${resultCount}</div>
+        </div>
+        <div class="no-rx-box">
+          <div class="no-rx-icon">🔍</div>
+          <div class="no-rx-text">Không tìm thấy phản ứng phù hợp trong database.<br>
+          Thử đổi điều kiện phản ứng hoặc kiểm tra lại ký hiệu hóa học.<br>
+          <span style="color:var(--muted);font-size:0.75rem">Database hiện có 150+ phản ứng thường gặp.</span></div>
+        </div>`;
+    } else if(rx.noReaction){
+      card.className='res-card warn-card';
+      const plain=rx.balanced;
+      card.innerHTML=`
+        <div class="res-header">
+          <div class="res-dot"></div>
+          <div class="res-title">${reactants.join(' + ')} → ?</div>
+          <div class="res-num">#${resultCount}</div>
+          <button class="copy-btn" onclick="doCopy(this,${JSON.stringify(plain)})">COPY</button>
+        </div>
+        <div class="res-eq"><span style="color:var(--red)">⊘ Không xảy ra phản ứng</span></div>
+        <div class="type-badge-row">
+          <span class="type-badge type-special">Trường hợp đặc biệt</span>
+        </div>
+        ${makeExplain(rx)}
+        ${rx.warnings?makeWarn(rx.warnings):''}`;
+    } else {
+      card.className='res-card';
+      const plain=rx.balanced.replace(/<[^>]+>/g,'');
+      const condLabel=COND_LABELS[rx.condition]||rx.condition;
+      card.innerHTML=`
+        <div class="res-header">
+          <div class="res-dot"></div>
+          <div class="res-title">${reactants.join(' + ')}</div>
+          <div class="res-num">#${resultCount}</div>
+          <button class="copy-btn" onclick="doCopy(this,${JSON.stringify(rx.balanced)})">COPY</button>
+        </div>
+        <div class="res-eq">${fmtEq(rx.balanced)}</div>
+        <div class="type-badge-row">
+          <span class="type-badge ${TYPE_CLASS[rx.type]||'type-special'}">${TYPE_LABELS[rx.type]||rx.type}</span>
+          ${condLabel?`<span class="cond-badge">${escHtml(condLabel)}</span>`:''}
+        </div>
+        ${makeExplain(rx)}
+        ${rx.oxidation?makeOxTable(rx.oxidation):''}
+        ${rx.warnings?makeWarn(rx.warnings):''}`;
+    }
+
+    const cards=document.getElementById('resultCards');
+    cards.prepend(card);
+    document.getElementById('resultSection').style.display='block';
+    document.getElementById('emptyState').style.display='none';
+
+    btn.innerHTML='Viết sản phẩm';
+    btn.disabled=false;
+  },40);
+}
+
+function makeExplain(rx){
+  if(!rx.explanation) return '';
+  return `<div class="explain-block">
+    <div class="explain-section">
+      <div class="explain-title">Giải thích cơ chế</div>
+      <div class="explain-text">${rx.explanation}</div>
+    </div>
+  </div>`;
+}
+
+function makeOxTable(oxList){
+  const rows=oxList.map(o=>`
+    <tr>
+      <td>${escHtml(o.elem)}</td>
+      <td class="${o.change==='ox-up'?'ox-up':'ox-down'}">${o.from}</td>
+      <td class="ox-arrow">→</td>
+      <td class="${o.change==='ox-up'?'ox-up':'ox-down'}">${o.to}</td>
+      <td>${o.change==='ox-up'?'⬆ Bị oxi hóa (mất e)':'⬇ Bị khử (nhận e)'}</td>
+    </tr>`).join('');
+  return `<div class="explain-block">
+    <div class="explain-section">
+      <div class="explain-title">Thay đổi số oxi hóa</div>
+      <table class="ox-table">
+        <thead><tr><th>Nguyên tố</th><th>Trước</th><th></th><th>Sau</th><th>Vai trò</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  </div>`;
+}
+
+function makeWarn(text){
+  return `<div class="warn-box">
+    <div class="warn-box-title">⚠ Lưu ý / Ngoại lệ</div>
+    <div class="warn-box-text">${text}</div>
+  </div>`;
+}
+
+function doCopy(btn, text){
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent='COPIED!'; btn.style.color='var(--teal)';
+    setTimeout(()=>{ btn.textContent='COPY'; btn.style.color=''; },1500);
+  });
+}
+
+// ── Floating hexagons ─────────────────────────────────────────────────────
+(function(){
+  const grid=document.getElementById('hexGrid');
+  function spawn(){
+    const h=document.createElement('div'); h.className='hex';
+    const sz=30+Math.random()*70;
+    h.style.cssText=`width:${sz}px;height:${sz*1.15}px;left:${Math.random()*100}vw;
+      animation-duration:${18+Math.random()*22}s;animation-delay:${Math.random()*-20}s;`;
+    grid.appendChild(h);
+    h.addEventListener('animationend',()=>h.remove());
+  }
+  for(let i=0;i<10;i++) spawn();
+  setInterval(spawn,2500);
+})();
+</script>
+</body>
+</html>
