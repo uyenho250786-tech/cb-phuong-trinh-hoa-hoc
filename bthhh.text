@@ -1,0 +1,126 @@
+# BẢNG DỮ LIỆU HÓA HỌC - PTHH TOOLS v1.0
+# ============================================================
+# Dùng bởi formula-fixer.html để tra hoá trị và xây dựng công thức
+# ============================================================
+# Format nguyên tố:
+# [NGUYEN_TO]
+# SYM|TEN_VIET|SO_HIEU|NGUYEN_TU_KHOI|HOA_TRI|TEN_LA_TINH|LOAI
+# HOA_TRI: dấu phẩy phân cách, ví dụ "+1" hoặc "+2,+3" hoặc "-2"
+# Dấu * đánh dấu hoá trị PHỔ BIẾN NHẤT
+#
+# Format gốc axit / nhóm:
+# [GOC_AXIT]
+# SYM|TEN|HOA_TRI|MO_TA
+# [NHOM]
+# SYM|TEN|HOA_TRI|MO_TA
+
+[NGUYEN_TO]
+H|Hidro|1|1.008|*+1,-1|Hydrogen|Phi kim
+He|Heli|2|4.003|0|Helium|Khí hiếm
+Li|Liti|3|6.941|*+1|Lithium|Kim loại kiềm
+Be|Beri|4|9.012|*+2|Beryllium|Kim loại kiềm thổ
+B|Bo|5|10.811|*+3|Boron|Á kim
+C|Cacbon|6|12.011|*+4,+2,-4|Carbon|Phi kim
+N|Nito|7|14.007|*-3,+1,+2,+3,+4,+5|Nitrogen|Phi kim
+O|Oxi|8|15.999|*-2|Oxygen|Phi kim
+F|Flo|9|18.998|*-1|Fluorine|Phi kim
+Ne|Neon|10|20.180|0|Neon|Khí hiếm
+Na|Natri|11|22.990|*+1|Sodium|Kim loại kiềm
+Mg|Magie|12|24.305|*+2|Magnesium|Kim loại kiềm thổ
+Al|Nhôm|13|26.982|*+3|Aluminum|Kim loại
+Si|Silic|14|28.086|*+4,-4|Silicon|Á kim
+P|Photpho|15|30.974|*+5,+3,-3|Phosphorus|Phi kim
+S|Lưu huỳnh|16|32.065|*-2,+4,+6|Sulfur|Phi kim
+Cl|Clo|17|35.453|*-1,+1,+3,+5,+7|Chlorine|Phi kim
+Ar|Agon|18|39.948|0|Argon|Khí hiếm
+K|Kali|19|39.098|*+1|Potassium|Kim loại kiềm
+Ca|Canxi|20|40.078|*+2|Calcium|Kim loại kiềm thổ
+Sc|Scandi|21|44.956|*+3|Scandium|Kim loại chuyển tiếp
+Ti|Titan|22|47.867|*+4,+3|Titanium|Kim loại chuyển tiếp
+V|Vanadi|23|50.942|*+5,+3,+4,+2|Vanadium|Kim loại chuyển tiếp
+Cr|Crom|24|51.996|*+3,+2,+6|Chromium|Kim loại chuyển tiếp
+Mn|Mangan|25|54.938|*+2,+4,+7,+3,+6|Manganese|Kim loại chuyển tiếp
+Fe|Sắt|26|55.845|*+3,+2|Iron|Kim loại chuyển tiếp
+Co|Coban|27|58.933|*+2,+3|Cobalt|Kim loại chuyển tiếp
+Ni|Niken|28|58.693|*+2,+3|Nickel|Kim loại chuyển tiếp
+Cu|Đồng|29|63.546|*+2,+1|Copper|Kim loại chuyển tiếp
+Zn|Kẽm|30|65.38|*+2|Zinc|Kim loại chuyển tiếp
+Ga|Gali|31|69.723|*+3|Gallium|Kim loại
+Ge|Gecmani|32|72.64|*+4,+2|Germanium|Á kim
+As|Asen|33|74.922|*+3,+5,-3|Arsenic|Á kim
+Se|Selen|34|78.96|*-2,+4,+6|Selenium|Phi kim
+Br|Brom|35|79.904|*-1,+1,+3,+5|Bromine|Phi kim
+Kr|Kripton|36|83.798|0|Krypton|Khí hiếm
+Rb|Rubiđi|37|85.468|*+1|Rubidium|Kim loại kiềm
+Sr|Stronti|38|87.62|*+2|Strontium|Kim loại kiềm thổ
+Y|Ytri|39|88.906|*+3|Yttrium|Kim loại
+Zr|Zirconi|40|91.224|*+4|Zirconium|Kim loại chuyển tiếp
+Nb|Niobi|41|92.906|*+5,+3|Niobium|Kim loại chuyển tiếp
+Mo|Molipđen|42|95.96|*+6,+4,+3,+2|Molybdenum|Kim loại chuyển tiếp
+Ag|Bạc|47|107.868|*+1|Silver|Kim loại quý
+Cd|Cadimi|48|112.411|*+2|Cadmium|Kim loại chuyển tiếp
+In|Indi|49|114.818|*+3|Indium|Kim loại
+Sn|Thiếc|50|118.71|*+4,+2|Tin|Kim loại
+Sb|Antimon|51|121.76|*+3,+5|Antimony|Á kim
+Te|Telu|52|127.6|*-2,+4,+6|Tellurium|Á kim
+I|Iot|53|126.904|*-1,+1,+3,+5,+7|Iodine|Phi kim
+Xe|Xenon|54|131.293|0|Xenon|Khí hiếm
+Cs|Xesi|55|132.905|*+1|Cesium|Kim loại kiềm
+Ba|Bari|56|137.327|*+2|Barium|Kim loại kiềm thổ
+La|Lantan|57|138.905|*+3|Lanthanum|Lanthanide
+Ce|Xeri|58|140.116|*+3,+4|Cerium|Lanthanide
+Hf|Hafni|72|178.49|*+4|Hafnium|Kim loại chuyển tiếp
+W|Vonfram|74|183.84|*+6,+4,+2|Tungsten|Kim loại chuyển tiếp
+Pt|Platin|78|195.084|*+2,+4|Platinum|Kim loại quý
+Au|Vàng|79|196.967|*+3,+1|Gold|Kim loại quý
+Hg|Thủy ngân|80|200.59|*+2,+1|Mercury|Kim loại chuyển tiếp
+Tl|Tali|81|204.383|*+1,+3|Thallium|Kim loại
+Pb|Chì|82|207.2|*+2,+4|Lead|Kim loại
+Bi|Bitmut|83|208.980|*+3,+5|Bismuth|Kim loại
+Ra|Radi|88|226|*+2|Radium|Kim loại kiềm thổ
+U|Urani|92|238.029|*+6,+4,+3|Uranium|Actinide
+
+[GOC_AXIT]
+OH|Hidroxit|-1|Gốc bazơ — từ HO⁻ (nước phân ly)
+F|Florua|-1|Gốc axit flohidric HF
+Cl|Clorua|-1|Gốc axit clohidric HCl
+Br|Bromua|-1|Gốc axit bromhidric HBr
+I|Iotua|-1|Gốc axit iothidric HI
+S|Sunfua|-2|Gốc axit sunfuhidric H₂S
+HS|Hidrosunfua|-1|Gốc H₂S nấc 1
+NO2|Nitrit|-1|Gốc axit nitrơ HNO₂
+NO3|Nitrat|-1|Gốc axit nitric HNO₃
+SO3|Sunfit|-2|Gốc axit sunfurơ H₂SO₃
+HSO3|Hidrosunfit|-1|Gốc H₂SO₃ nấc 1
+SO4|Sunfat|-2|Gốc axit sunfuric H₂SO₄
+HSO4|Hidrosunfat|-1|Gốc H₂SO₄ nấc 1
+CO3|Cacbonat|-2|Gốc axit cacbonic H₂CO₃
+HCO3|Hidrocacbonat|-1|Gốc H₂CO₃ nấc 1 (bicarbonat)
+PO4|Photphat|-3|Gốc axit photphoric H₃PO₄
+HPO4|Hidrophotphat|-2|Gốc H₃PO₄ nấc 2
+H2PO4|Đihidrophotphat|-1|Gốc H₃PO₄ nấc 1
+SiO3|Silicat|-2|Gốc axit silicic H₂SiO₃
+MnO4|Pemanganat|-1|Gốc axit permanganic HMnO₄
+Cr2O7|Đicromat|-2|Gốc H₂Cr₂O₇
+CrO4|Cromat|-2|Gốc H₂CrO₄
+CN|Xianua|-1|Gốc axit xianhidric HCN
+SCN|Thioxianat|-1|Gốc HSCN
+CH3COO|Axetat|-1|Gốc axit axetic CH₃COOH
+HCOO|Focmat|-1|Gốc axit fomic HCOOH
+C2O4|Oxalat|-2|Gốc axit oxalic H₂C₂O₄
+ClO|Hipoclorit|-1|Gốc HClO
+ClO2|Clorit|-1|Gốc HClO₂
+ClO3|Clorat|-1|Gốc HClO₃
+ClO4|Peclorat|-1|Gốc HClO₄
+BrO3|Bromat|-1|Gốc HBrO₃
+IO3|Iodat|-1|Gốc HIO₃
+BO3|Borat|-3|Gốc axit boric H₃BO₃
+AlO2|Aluminat|-1|Gốc aluminat (trong dung dịch kiềm)
+ZnO2|Zincat|-2|Gốc zincat (trong dung dịch kiềm)
+FeO2|Ferit|-2|Gốc ferit (trong dung dịch kiềm đặc)
+CrO2|Cromat(II)|-1|Gốc trong dung dịch kiềm
+
+[NHOM]
+NH4|Amoni|+1|Ion NH₄⁺ — từ NH₃ + H⁺
+H3O|Oxoni|+1|Ion H₃O⁺ — H⁺ trong nước
+Hg2|Đimecuri(I)|+2|Ion Hg₂²⁺ — thủy ngân(I) dimer
