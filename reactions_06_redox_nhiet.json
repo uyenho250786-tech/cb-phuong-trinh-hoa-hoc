@@ -1,0 +1,61 @@
+{
+  "meta": { "file": "reactions_06_redox_nhiet.json", "type": "redox", "desc": "Phản ứng oxi hóa khử nhiệt — nhiệt nhôm, khử oxit kim loại bằng C/H2/CO", "count": 8 },
+  "reactions": [
+    {
+      "key": "al_fe2o3", "reactants": ["Al","Fe2O3"], "products": ["Al2O3","Fe"],
+      "type": "redox", "condition": "nhiet_cao",
+      "balanced": "2Al + Fe2O3 -> Al2O3 + 2Fe",
+      "oxidation": [{"elem":"Al","from":"0","to":"+3"},{"elem":"Fe","from":"+3","to":"0"}],
+      "note": "Phản ứng nhiệt nhôm (aluminothermy). Al khử Fe2O3 ở ~3000°C. Fe lỏng dùng hàn đường ray."
+    },
+    {
+      "key": "al_cuo", "reactants": ["Al","CuO"], "products": ["Al2O3","Cu"],
+      "type": "redox", "condition": "nhiet_cao",
+      "balanced": "2Al + 3CuO -> Al2O3 + 3Cu",
+      "oxidation": [{"elem":"Al","from":"0","to":"+3"},{"elem":"Cu","from":"+2","to":"0"}],
+      "note": "Nhiệt nhôm với CuO. Al khử Cu2+ về Cu0."
+    },
+    {
+      "key": "c_co2", "reactants": ["C","CO2"], "products": ["CO"],
+      "type": "redox", "condition": "nhiet_cao",
+      "balanced": "C + CO2 -> 2CO",
+      "oxidation": [{"elem":"C (C rắn)","from":"0","to":"+2"},{"elem":"C (CO2)","from":"+4","to":"+2"}],
+      "note": "Phản ứng Boudouard. C khử CO2 ở nhiệt độ cao trong lò cao."
+    },
+    {
+      "key": "co_fe2o3", "reactants": ["CO","Fe2O3"], "products": ["Fe","CO2"],
+      "type": "redox", "condition": "nhiet_cao",
+      "balanced": "3CO + Fe2O3 -> 2Fe + 3CO2",
+      "oxidation": [{"elem":"C (CO)","from":"+2","to":"+4"},{"elem":"Fe","from":"+3","to":"0"}],
+      "note": "CO khử Fe2O3 trong lò cao luyện gang."
+    },
+    {
+      "key": "h2_fe2o3", "reactants": ["H2","Fe2O3"], "products": ["Fe","H2O"],
+      "type": "redox", "condition": "nhiet_cao",
+      "balanced": "3H2 + Fe2O3 -> 2Fe + 3H2O",
+      "oxidation": [{"elem":"H","from":"0","to":"+1"},{"elem":"Fe","from":"+3","to":"0"}],
+      "note": "H2 khử Fe2O3 ở nhiệt độ cao."
+    },
+    {
+      "key": "h2_cuo", "reactants": ["H2","CuO"], "products": ["Cu","H2O"],
+      "type": "redox", "condition": "nhiet",
+      "balanced": "H2 + CuO -> Cu + H2O",
+      "oxidation": [{"elem":"H","from":"0","to":"+1"},{"elem":"Cu","from":"+2","to":"0"}],
+      "note": "H2 khử CuO: CuO đen -> Cu đỏ."
+    },
+    {
+      "key": "kmno4_hcl", "reactants": ["KMnO4","HCl"], "products": ["KCl","MnCl2","H2O","Cl2"],
+      "type": "redox", "condition": "dung_dich",
+      "balanced": "2KMnO4 + 16HCl -> 2KCl + 2MnCl2 + 8H2O + 5Cl2",
+      "oxidation": [{"elem":"Mn","from":"+7","to":"+2"},{"elem":"Cl","from":"-1","to":"0"}],
+      "note": "KMnO4 oxi hóa HCl -> Cl2. Điều chế Cl2 trong phòng thí nghiệm."
+    },
+    {
+      "key": "s_o2", "reactants": ["S","O2"], "products": ["SO2"],
+      "type": "synthesis", "condition": "nhiet",
+      "balanced": "S + O2 -> SO2",
+      "oxidation": [{"elem":"S","from":"0","to":"+4"},{"elem":"O","from":"0","to":"-2"}],
+      "note": "S cháy trong O2 tạo SO2 (khí mùi hắc)."
+    }
+  ]
+}

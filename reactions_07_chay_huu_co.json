@@ -1,0 +1,62 @@
+{
+  "meta": { "file": "reactions_07_chay_huu_co.json", "type": "combustion", "desc": "Phản ứng đốt cháy hợp chất hữu cơ — ankan, anken, ankin, C, CO", "count": 9 },
+  "reactions": [
+    {
+      "key": "ch4_o2", "reactants": ["CH4","O2"], "products": ["CO2","H2O"],
+      "type": "combustion", "condition": "nhiet",
+      "balanced": "CH4 + 2O2 -> CO2 + 2H2O",
+      "note": "Metan (khí thiên nhiên) cháy hoàn toàn -> CO2 + H2O."
+    },
+    {
+      "key": "c2h6_o2", "reactants": ["C2H6","O2"], "products": ["CO2","H2O"],
+      "type": "combustion", "condition": "nhiet",
+      "balanced": "2C2H6 + 7O2 -> 4CO2 + 6H2O",
+      "note": "Etan cháy hoàn toàn. Công thức tổng quát ankan CnH2n+2: (3n+1)/2 O2 -> nCO2 + (n+1)H2O."
+    },
+    {
+      "key": "c3h8_o2", "reactants": ["C3H8","O2"], "products": ["CO2","H2O"],
+      "type": "combustion", "condition": "nhiet",
+      "balanced": "C3H8 + 5O2 -> 3CO2 + 4H2O",
+      "note": "Propan (bình gas hóa lỏng) cháy hoàn toàn."
+    },
+    {
+      "key": "c2h4_o2", "reactants": ["C2H4","O2"], "products": ["CO2","H2O"],
+      "type": "combustion", "condition": "nhiet",
+      "balanced": "C2H4 + 3O2 -> 2CO2 + 2H2O",
+      "note": "Eten (anken CnH2n) cháy. Công thức tổng quát: 3n/2 O2 -> nCO2 + nH2O."
+    },
+    {
+      "key": "c2h2_o2", "reactants": ["C2H2","O2"], "products": ["CO2","H2O"],
+      "type": "combustion", "condition": "nhiet",
+      "balanced": "2C2H2 + 5O2 -> 4CO2 + 2H2O",
+      "note": "Axetylen (ankin CnH2n-2) cháy tỏa nhiệt rất cao."
+    },
+    {
+      "key": "c_o2_day_du", "reactants": ["C","O2"], "products": ["CO2"],
+      "type": "combustion", "condition": "nhiet",
+      "balanced": "C + O2 -> CO2",
+      "oxidation": [{"elem":"C","from":"0","to":"+4"},{"elem":"O","from":"0","to":"-2"}],
+      "note": "C cháy hoàn toàn trong O2 dư tạo CO2."
+    },
+    {
+      "key": "c_o2_thieu", "reactants": ["C","O2"], "products": ["CO"],
+      "type": "combustion", "condition": "nhiet_cao",
+      "balanced": "2C + O2 -> 2CO",
+      "oxidation": [{"elem":"C","from":"0","to":"+2"},{"elem":"O","from":"0","to":"-2"}],
+      "note": "C cháy trong O2 thiếu hoặc nhiệt độ cao tạo CO (khí độc).",
+      "warnings": "O2 dư -> CO2; O2 thiếu hoặc nhiệt cao -> CO."
+    },
+    {
+      "key": "c6h12o6_o2", "reactants": ["C6H12O6","O2"], "products": ["CO2","H2O"],
+      "type": "combustion", "condition": "nhiet",
+      "balanced": "C6H12O6 + 6O2 -> 6CO2 + 6H2O",
+      "note": "Glucozo cháy hoàn toàn (hoặc quá trình hô hấp tế bào)."
+    },
+    {
+      "key": "c2h5oh_o2", "reactants": ["C2H5OH","O2"], "products": ["CO2","H2O"],
+      "type": "combustion", "condition": "nhiet",
+      "balanced": "C2H5OH + 3O2 -> 2CO2 + 3H2O",
+      "note": "Cồn ethanol cháy hoàn toàn. Dùng trong nhiên liệu sinh học."
+    }
+  ]
+}

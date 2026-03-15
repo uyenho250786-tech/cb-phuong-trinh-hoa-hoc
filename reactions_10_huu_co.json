@@ -1,0 +1,118 @@
+{
+  "meta": { "file": "reactions_10_huu_co.json", "type": "organic", "desc": "Phản ứng hữu cơ — cộng, thế, trùng hợp, lên men, este hóa", "count": 18 },
+  "reactions": [
+    {
+      "key": "c2h4_h2", "reactants": ["C2H4","H2"], "products": ["C2H6"],
+      "type": "addition", "condition": "nhiet",
+      "balanced": "C2H4 + H2 -> C2H6",
+      "note": "Cộng H2 vào eten (anken). Xúc tác Ni/Pt, nhiệt độ. Hydro hóa."
+    },
+    {
+      "key": "c2h4_br2", "reactants": ["C2H4","Br2"], "products": ["C2H4Br2"],
+      "type": "addition", "condition": "thuong",
+      "balanced": "C2H4 + Br2 -> C2H4Br2",
+      "note": "Eten làm mất màu dung dịch Br2 (cam -> không màu). Nhận biết anken/ankin.",
+      "warnings": "Phân biệt ankan: CH4 + Cl2 là phản ứng thế (cần ánh sáng). Anken + Br2 là phản ứng cộng."
+    },
+    {
+      "key": "c2h4_hcl", "reactants": ["C2H4","HCl"], "products": ["C2H5Cl"],
+      "type": "addition", "condition": "thuong",
+      "balanced": "C2H4 + HCl -> C2H5Cl",
+      "note": "Cộng HCl vào eten -> etyl clorua. Quy tắc Markovnikov: H cộng vào C nhiều H hơn."
+    },
+    {
+      "key": "c2h4_h2o", "reactants": ["C2H4","H2O"], "products": ["C2H5OH"],
+      "type": "addition", "condition": "nhiet",
+      "balanced": "C2H4 + H2O -> C2H5OH",
+      "note": "Cộng nước vào eten -> ethanol. Xúc tác H3PO4, 300°C. Sản xuất cồn công nghiệp."
+    },
+    {
+      "key": "c2h2_h2", "reactants": ["C2H2","H2"], "products": ["C2H4"],
+      "type": "addition", "condition": "nhiet",
+      "balanced": "C2H2 + H2 -> C2H4",
+      "note": "Axetylen cộng 1 H2 -> eten. Cộng tiếp: C2H4 + H2 -> C2H6."
+    },
+    {
+      "key": "c2h2_br2", "reactants": ["C2H2","Br2"], "products": ["C2H2Br4"],
+      "type": "addition", "condition": "thuong",
+      "balanced": "C2H2 + 2Br2 -> C2H2Br4",
+      "note": "Ankin cộng 2 phân tử Br2. Làm mất màu nước Br2 mạnh hơn anken."
+    },
+    {
+      "key": "ch4_cl2_as", "reactants": ["CH4","Cl2"], "products": ["CH3Cl","HCl"],
+      "type": "substitution", "condition": "sang",
+      "balanced": "CH4 + Cl2 -> CH3Cl + HCl",
+      "note": "Phản ứng thế halogen vào ankan. Cần ánh sáng (UV). Tiếp tục: CH3Cl + Cl2 -> CH2Cl2...",
+      "warnings": "Ankan phản ứng THẾ (cần ánh sáng). Anken phản ứng CỘNG (không cần ánh sáng)."
+    },
+    {
+      "key": "c6h6_br2", "reactants": ["C6H6","Br2"], "products": ["C6H5Br","HBr"],
+      "type": "substitution", "condition": "thuong",
+      "balanced": "C6H6 + Br2 -> C6H5Br + HBr",
+      "note": "Benzen phản ứng thế với Br2 lỏng (xúc tác FeBr3). Brombenzen."
+    },
+    {
+      "key": "len_men_glucose", "reactants": ["C6H12O6"], "products": ["C2H5OH","CO2"],
+      "type": "decomp", "condition": "thuong",
+      "balanced": "C6H12O6 -> 2C2H5OH + 2CO2",
+      "note": "Lên men rượu (yeast/nấm men). Nhiệt độ 30-35°C. Sản xuất rượu bia."
+    },
+    {
+      "key": "este_hoa", "reactants": ["CH3COOH","C2H5OH"], "products": ["CH3COOC2H5","H2O"],
+      "type": "synthesis", "condition": "nhiet",
+      "balanced": "CH3COOH + C2H5OH -> CH3COOC2H5 + H2O",
+      "note": "Este hóa axit axetic + ethanol -> etyl axetat. Xúc tác H2SO4 đặc, đun nóng. Thuận nghịch.",
+      "warnings": "Phản ứng thuận nghịch. Để thu hơn este cần lấy bớt sản phẩm hoặc dùng dư axit/cồn."
+    },
+    {
+      "key": "thuy_phan_este", "reactants": ["CH3COOC2H5","H2O"], "products": ["CH3COOH","C2H5OH"],
+      "type": "decomp", "condition": "nhiet",
+      "balanced": "CH3COOC2H5 + H2O -> CH3COOH + C2H5OH",
+      "note": "Thủy phân este trong môi trường axit (thuận nghịch). Trong kiềm: xà phòng hóa (không thuận nghịch)."
+    },
+    {
+      "key": "xa_phong_hoa", "reactants": ["CH3COOC2H5","NaOH"], "products": ["CH3COONa","C2H5OH"],
+      "type": "neutralize", "condition": "nhiet",
+      "balanced": "CH3COOC2H5 + NaOH -> CH3COONa + C2H5OH",
+      "note": "Xà phòng hóa este trong kiềm. Không thuận nghịch (khác thủy phân trong axit)."
+    },
+    {
+      "key": "trung_hop_etilen", "reactants": ["C2H4"], "products": ["(C2H4)n"],
+      "type": "polymerization", "condition": "nhiet",
+      "balanced": "nC2H4 -> (-CH2-CH2-)n",
+      "note": "Trùng hợp eten -> polyethylene (PE). Xúc tác Ziegler-Natta hoặc peoxit."
+    },
+    {
+      "key": "trung_hop_vinyl", "reactants": ["CH2=CHCl"], "products": ["(CH2CHCl)n"],
+      "type": "polymerization", "condition": "nhiet",
+      "balanced": "nCH2=CHCl -> (-CH2-CHCl-)n",
+      "note": "Trùng hợp vinyl clorua -> PVC (polyvinyl chloride). Vật liệu xây dựng, ống nước."
+    },
+    {
+      "key": "glucose_nuoc", "reactants": ["(C6H10O5)n","H2O"], "products": ["C6H12O6"],
+      "type": "decomp", "condition": "nhiet",
+      "balanced": "(C6H10O5)n + nH2O -> nC6H12O6",
+      "note": "Thủy phân tinh bột/xenlulozo -> glucose. Xúc tác axit hoặc enzyme."
+    },
+    {
+      "key": "c2h5oh_na", "reactants": ["C2H5OH","Na"], "products": ["C2H5ONa","H2"],
+      "type": "displacement", "condition": "thuong",
+      "balanced": "2C2H5OH + 2Na -> 2C2H5ONa + H2",
+      "oxidation": [{"elem":"Na","from":"0","to":"+1"},{"elem":"H","from":"+1","to":"0"}],
+      "note": "Ancol tác dụng Na (giống nước nhưng yếu hơn). Phản ứng chậm, không bốc lửa.",
+      "warnings": "C2H5OH + Na phản ứng CHẬM hơn nhiều so với H2O + Na."
+    },
+    {
+      "key": "ch3cooh_na2co3", "reactants": ["CH3COOH","Na2CO3"], "products": ["CH3COONa","CO2","H2O"],
+      "type": "displacement", "condition": "dung_dich",
+      "balanced": "2CH3COOH + Na2CO3 -> 2CH3COONa + CO2 + H2O",
+      "note": "Axit axetic (axit yếu) + Na2CO3 -> sủi bọt CO2. Nhận biết axit cacboxylic."
+    },
+    {
+      "key": "c2h5oh_hcl", "reactants": ["C2H5OH","HCl"], "products": ["C2H5Cl","H2O"],
+      "type": "substitution", "condition": "nhiet",
+      "balanced": "C2H5OH + HCl -> C2H5Cl + H2O",
+      "note": "Thay nhóm -OH bằng -Cl. Xúc tác ZnCl2, đun nóng."
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "meta": { "file": "reactions_01_tong_hop.json", "type": "synthesis", "desc": "Phản ứng tổng hợp — oxit + nước, kim loại + oxi, oxit + oxit", "count": 18 },
+  "reactions": [
+    {
+      "key": "so3_h2o", "reactants": ["SO3","H2O"], "products": ["H2SO4"],
+      "type": "synthesis", "condition": "thuong",
+      "balanced": "SO3 + H2O -> H2SO4",
+      "note": "SO3 là anhydrit của H2SO4. S giữ số oxi hóa +6.",
+      "warnings": "Sản phẩm là H2SO4, không phải H2S + O4."
+    },
+    {
+      "key": "so2_h2o", "reactants": ["SO2","H2O"], "products": ["H2SO3"],
+      "type": "synthesis", "condition": "thuong",
+      "balanced": "SO2 + H2O -> H2SO3",
+      "note": "S giữ +4. H2SO3 không bền, dễ phân hủy khi đun.",
+      "warnings": "H2SO3 rất kém bền, ít tồn tại dạng tinh khiết."
+    },
+    {
+      "key": "co2_h2o", "reactants": ["CO2","H2O"], "products": ["H2CO3"],
+      "type": "synthesis", "condition": "thuong",
+      "balanced": "CO2 + H2O -> H2CO3",
+      "note": "C giữ +4. H2CO3 không bền -> CO2 + H2O.",
+      "warnings": "H2CO3 chỉ tồn tại trong dung dịch."
+    },
+    {
+      "key": "p2o5_h2o", "reactants": ["P2O5","H2O"], "products": ["H3PO4"],
+      "type": "synthesis", "condition": "thuong",
+      "balanced": "P2O5 + 3H2O -> 2H3PO4",
+      "note": "P ở +5. Phản ứng tỏa nhiệt mạnh, P2O5 hút ẩm rất mạnh."
+    },
+    {
+      "key": "n2o5_h2o", "reactants": ["N2O5","H2O"], "products": ["HNO3"],
+      "type": "synthesis", "condition": "thuong",
+      "balanced": "N2O5 + H2O -> 2HNO3",
+      "note": "N2O5 là anhydrit của HNO3. N ở +5."
+    },
+    {
+      "key": "cao_h2o", "reactants": ["CaO","H2O"], "products": ["Ca(OH)2"],
+      "type": "synthesis", "condition": "thuong",
+      "balanced": "CaO + H2O -> Ca(OH)2",
+      "note": "CaO (vôi sống) + nước -> Ca(OH)2 (vôi tôi). Tỏa nhiệt mạnh."
+    },
+    {
+      "key": "na2o_h2o", "reactants": ["Na2O","H2O"], "products": ["NaOH"],
+      "type": "synthesis", "condition": "thuong",
+      "balanced": "Na2O + H2O -> 2NaOH",
+      "note": "Na2O là oxit bazơ của Na (+1). Tạo dung dịch NaOH kiềm mạnh."
+    },
+    {
+      "key": "k2o_h2o", "reactants": ["K2O","H2O"], "products": ["KOH"],
+      "type": "synthesis", "condition": "thuong",
+      "balanced": "K2O + H2O -> 2KOH",
+      "note": "K2O là oxit bazơ của K (+1)."
+    },
+    {
+      "key": "bao_h2o", "reactants": ["BaO","H2O"], "products": ["Ba(OH)2"],
+      "type": "synthesis", "condition": "thuong",
+      "balanced": "BaO + H2O -> Ba(OH)2",
+      "note": "Ba(OH)2 tan tốt, là bazơ mạnh."
+    },
+    {
+      "key": "fe_o2_thuong", "reactants": ["Fe","O2"], "products": ["Fe2O3"],
+      "type": "synthesis", "condition": "thuong",
+      "balanced": "4Fe + 3O2 -> 2Fe2O3",
+      "oxidation": [{"elem":"Fe","from":"0","to":"+3"},{"elem":"O","from":"0","to":"-2"}],
+      "note": "Gỉ sắt ở điều kiện thường hoặc ẩm ướt.",
+      "warnings": "Đốt Fe trong O2 nguyên chất -> Fe3O4, không phải Fe2O3."
+    },
+    {
+      "key": "fe_o2_chay", "reactants": ["Fe","O2"], "products": ["Fe3O4"],
+      "type": "synthesis", "condition": "nhiet_cao",
+      "balanced": "3Fe + 2O2 -> Fe3O4",
+      "oxidation": [{"elem":"Fe","from":"0","to":"+8/3"},{"elem":"O","from":"0","to":"-2"}],
+      "note": "Fe3O4 = FeO.Fe2O3, chứa Fe +2 và +3 đồng thời."
+    },
+    {
+      "key": "mg_o2", "reactants": ["Mg","O2"], "products": ["MgO"],
+      "type": "synthesis", "condition": "nhiet",
+      "balanced": "2Mg + O2 -> 2MgO",
+      "oxidation": [{"elem":"Mg","from":"0","to":"+2"},{"elem":"O","from":"0","to":"-2"}],
+      "note": "Mg cháy ngọn lửa trắng chói."
+    },
+    {
+      "key": "al_o2", "reactants": ["Al","O2"], "products": ["Al2O3"],
+      "type": "synthesis", "condition": "nhiet",
+      "balanced": "4Al + 3O2 -> 2Al2O3",
+      "oxidation": [{"elem":"Al","from":"0","to":"+3"},{"elem":"O","from":"0","to":"-2"}],
+      "note": "Lớp Al2O3 mỏng thụ động hóa bề mặt Al trong không khí."
+    },
+    {
+      "key": "na_o2", "reactants": ["Na","O2"], "products": ["Na2O2"],
+      "type": "synthesis", "condition": "nhiet",
+      "balanced": "2Na + O2 -> Na2O2",
+      "note": "Na cháy trong O2 khô tạo Na2O2 (natri peoxit).",
+      "warnings": "Sản phẩm chính khi Na cháy là Na2O2, không phải Na2O."
+    },
+    {
+      "key": "cu_o2", "reactants": ["Cu","O2"], "products": ["CuO"],
+      "type": "synthesis", "condition": "nhiet",
+      "balanced": "2Cu + O2 -> 2CuO",
+      "oxidation": [{"elem":"Cu","from":"0","to":"+2"},{"elem":"O","from":"0","to":"-2"}],
+      "note": "Cu cháy tạo CuO đen."
+    },
+    {
+      "key": "cao_co2", "reactants": ["CaO","CO2"], "products": ["CaCO3"],
+      "type": "synthesis", "condition": "nhiet",
+      "balanced": "CaO + CO2 -> CaCO3",
+      "note": "Oxit bazơ + oxit axit -> muối cacbonat. Ngược với nung CaCO3."
+    },
+    {
+      "key": "cao_so3", "reactants": ["CaO","SO3"], "products": ["CaSO4"],
+      "type": "synthesis", "condition": "thuong",
+      "balanced": "CaO + SO3 -> CaSO4",
+      "note": "CaO + SO3 -> CaSO4 (thạch cao khan)."
+    },
+    {
+      "key": "na2o_co2", "reactants": ["Na2O","CO2"], "products": ["Na2CO3"],
+      "type": "synthesis", "condition": "thuong",
+      "balanced": "Na2O + CO2 -> Na2CO3",
+      "note": "Na2O là oxit bazơ, CO2 là oxit axit -> Na2CO3."
+    }
+  ]
+}

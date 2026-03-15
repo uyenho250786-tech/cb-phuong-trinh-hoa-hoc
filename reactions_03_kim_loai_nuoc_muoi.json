@@ -1,0 +1,52 @@
+{
+  "meta": { "file": "reactions_03_kim_loai_nuoc_muoi.json", "type": "displacement", "desc": "Kim loại tác dụng nước và dung dịch muối", "count": 7 },
+  "reactions": [
+    {
+      "key": "na_h2o", "reactants": ["Na","H2O"], "products": ["NaOH","H2"],
+      "type": "displacement", "condition": "thuong",
+      "balanced": "2Na + 2H2O -> 2NaOH + H2",
+      "oxidation": [{"elem":"Na","from":"0","to":"+1"},{"elem":"H","from":"+1","to":"0"}],
+      "note": "Na (kim loại kiềm) phản ứng mạnh với nước ngay ở điều kiện thường. Tỏa nhiệt, H2 có thể bốc cháy."
+    },
+    {
+      "key": "k_h2o", "reactants": ["K","H2O"], "products": ["KOH","H2"],
+      "type": "displacement", "condition": "thuong",
+      "balanced": "2K + 2H2O -> 2KOH + H2",
+      "oxidation": [{"elem":"K","from":"0","to":"+1"},{"elem":"H","from":"+1","to":"0"}],
+      "note": "K phản ứng mạnh hơn Na với nước, thường bốc lửa ngay."
+    },
+    {
+      "key": "ca_h2o", "reactants": ["Ca","H2O"], "products": ["Ca(OH)2","H2"],
+      "type": "displacement", "condition": "thuong",
+      "balanced": "Ca + 2H2O -> Ca(OH)2 + H2",
+      "oxidation": [{"elem":"Ca","from":"0","to":"+2"},{"elem":"H","from":"+1","to":"0"}],
+      "note": "Ca phản ứng chậm hơn Na/K với nước ở nhiệt độ thường, sủi bọt đều."
+    },
+    {
+      "key": "fe_cuso4", "reactants": ["Fe","CuSO4"], "products": ["FeSO4","Cu"],
+      "type": "displacement", "condition": "dung_dich",
+      "balanced": "Fe + CuSO4 -> FeSO4 + Cu",
+      "oxidation": [{"elem":"Fe","from":"0","to":"+2"},{"elem":"Cu","from":"+2","to":"0"}],
+      "note": "Fe đẩy Cu ra khỏi dung dịch CuSO4 (Fe hoạt động hơn Cu). Cu đỏ bám lên Fe."
+    },
+    {
+      "key": "cu_agno3", "reactants": ["Cu","AgNO3"], "products": ["Cu(NO3)2","Ag"],
+      "type": "displacement", "condition": "dung_dich",
+      "balanced": "Cu + 2AgNO3 -> Cu(NO3)2 + 2Ag",
+      "oxidation": [{"elem":"Cu","from":"0","to":"+2"},{"elem":"Ag","from":"+1","to":"0"}],
+      "note": "Cu đẩy Ag ra khỏi AgNO3 (Cu hoạt động hơn Ag). Bạc ánh bạc bám lên Cu."
+    },
+    {
+      "key": "nacl_agno3", "reactants": ["NaCl","AgNO3"], "products": ["AgCl","NaNO3"],
+      "type": "displacement", "condition": "dung_dich",
+      "balanced": "NaCl + AgNO3 -> AgCl + NaNO3",
+      "note": "Cl- + Ag+ -> AgCl (kết tủa trắng). Dùng nhận biết ion Cl-."
+    },
+    {
+      "key": "na2so4_bacl2", "reactants": ["Na2SO4","BaCl2"], "products": ["BaSO4","NaCl"],
+      "type": "displacement", "condition": "dung_dich",
+      "balanced": "Na2SO4 + BaCl2 -> BaSO4 + 2NaCl",
+      "note": "Ba2+ + SO42- -> BaSO4 (kết tủa trắng). Nhận biết ion SO42- hoặc Ba2+."
+    }
+  ]
+}

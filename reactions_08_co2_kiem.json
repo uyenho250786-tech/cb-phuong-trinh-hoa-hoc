@@ -1,0 +1,55 @@
+{
+  "meta": { "file": "reactions_08_co2_kiem.json", "type": "synthesis", "desc": "CO2 và SO2 tác dụng dung dịch kiềm — tỉ lệ mol quyết định sản phẩm", "count": 8 },
+  "reactions": [
+    {
+      "key": "co2_naoh_1", "reactants": ["CO2","NaOH"], "products": ["NaHCO3"],
+      "type": "synthesis", "condition": "dung_dich",
+      "balanced": "CO2 + NaOH -> NaHCO3",
+      "note": "Tỉ lệ mol NaOH:CO2 = 1:1 -> NaHCO3 (muối axit, bicarbonat).",
+      "warnings": "Tỉ lệ NaOH:CO2 quyết định sản phẩm: 1:1 -> NaHCO3; 2:1 -> Na2CO3; giữa 1-2 -> hỗn hợp cả hai."
+    },
+    {
+      "key": "co2_naoh_2", "reactants": ["CO2","NaOH"], "products": ["Na2CO3","H2O"],
+      "type": "synthesis", "condition": "dung_dich",
+      "balanced": "CO2 + 2NaOH -> Na2CO3 + H2O",
+      "note": "Tỉ lệ mol NaOH:CO2 = 2:1 -> Na2CO3 (muối trung hòa) + H2O."
+    },
+    {
+      "key": "co2_ca_oh_2", "reactants": ["CO2","Ca(OH)2"], "products": ["CaCO3","H2O"],
+      "type": "synthesis", "condition": "dung_dich",
+      "balanced": "CO2 + Ca(OH)2 -> CaCO3 + H2O",
+      "note": "CO2 + nước vôi trong -> CaCO3 trắng đục. Nhận biết CO2.",
+      "warnings": "CO2 dư: CaCO3 + CO2 + H2O -> Ca(HCO3)2 tan -> dung dịch trong trở lại. Thêm Ca(OH)2 -> CaCO3 kết tủa lại."
+    },
+    {
+      "key": "co2_koh_1", "reactants": ["CO2","KOH"], "products": ["KHCO3"],
+      "type": "synthesis", "condition": "dung_dich",
+      "balanced": "CO2 + KOH -> KHCO3",
+      "note": "Tỉ lệ KOH:CO2 = 1:1 -> KHCO3 (kali bicarbonat)."
+    },
+    {
+      "key": "co2_koh_2", "reactants": ["CO2","KOH"], "products": ["K2CO3","H2O"],
+      "type": "synthesis", "condition": "dung_dich",
+      "balanced": "CO2 + 2KOH -> K2CO3 + H2O",
+      "note": "Tỉ lệ KOH:CO2 = 2:1 -> K2CO3 (kali cacbonat)."
+    },
+    {
+      "key": "so2_naoh_1", "reactants": ["SO2","NaOH"], "products": ["NaHSO3"],
+      "type": "synthesis", "condition": "dung_dich",
+      "balanced": "SO2 + NaOH -> NaHSO3",
+      "note": "Tỉ lệ NaOH:SO2 = 1:1 -> NaHSO3 (natri hidrosunfit)."
+    },
+    {
+      "key": "so2_naoh_2", "reactants": ["SO2","NaOH"], "products": ["Na2SO3","H2O"],
+      "type": "synthesis", "condition": "dung_dich",
+      "balanced": "SO2 + 2NaOH -> Na2SO3 + H2O",
+      "note": "Tỉ lệ NaOH:SO2 = 2:1 -> Na2SO3 (natri sunfit)."
+    },
+    {
+      "key": "so2_ca_oh_2", "reactants": ["SO2","Ca(OH)2"], "products": ["CaSO3","H2O"],
+      "type": "synthesis", "condition": "dung_dich",
+      "balanced": "SO2 + Ca(OH)2 -> CaSO3 + H2O",
+      "note": "SO2 + nước vôi trong -> CaSO3 kết tủa trắng. Tương tự CO2 nhưng tạo sunfit."
+    }
+  ]
+}

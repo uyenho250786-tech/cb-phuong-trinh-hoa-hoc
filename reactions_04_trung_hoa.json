@@ -1,0 +1,79 @@
+{
+  "meta": { "file": "reactions_04_trung_hoa.json", "type": "neutralize", "desc": "Phản ứng trung hòa axit-bazơ và oxit tác dụng axit", "count": 12 },
+  "reactions": [
+    {
+      "key": "hcl_naoh", "reactants": ["HCl","NaOH"], "products": ["NaCl","H2O"],
+      "type": "neutralize", "condition": "dung_dich",
+      "balanced": "HCl + NaOH -> NaCl + H2O",
+      "note": "H+ (HCl) + OH- (NaOH) -> H2O. Không có thay đổi số oxi hóa."
+    },
+    {
+      "key": "h2so4_naoh", "reactants": ["H2SO4","NaOH"], "products": ["Na2SO4","H2O"],
+      "type": "neutralize", "condition": "dung_dich",
+      "balanced": "H2SO4 + 2NaOH -> Na2SO4 + 2H2O",
+      "note": "H2SO4 có 2 H+, cần 2 NaOH. Tạo Na2SO4."
+    },
+    {
+      "key": "h2so4_ba_oh_2", "reactants": ["H2SO4","Ba(OH)2"], "products": ["BaSO4","H2O"],
+      "type": "neutralize", "condition": "dung_dich",
+      "balanced": "H2SO4 + Ba(OH)2 -> BaSO4 + 2H2O",
+      "note": "Ba2+ + SO42- -> BaSO4 (kết tủa trắng). Nhận biết SO42- và Ba2+.",
+      "warnings": "BaSO4 không tan trong axit — khác với BaCO3 tan trong axit."
+    },
+    {
+      "key": "hcl_ca_oh_2", "reactants": ["HCl","Ca(OH)2"], "products": ["CaCl2","H2O"],
+      "type": "neutralize", "condition": "dung_dich",
+      "balanced": "2HCl + Ca(OH)2 -> CaCl2 + 2H2O",
+      "note": "Ca(OH)2 có 2 nhóm OH-, cần 2 HCl."
+    },
+    {
+      "key": "h3po4_naoh", "reactants": ["H3PO4","NaOH"], "products": ["Na3PO4","H2O"],
+      "type": "neutralize", "condition": "dung_dich",
+      "balanced": "H3PO4 + 3NaOH -> Na3PO4 + 3H2O",
+      "note": "H3PO4 có 3 H+ (axit 3 nấc), cần 3 NaOH.",
+      "warnings": "Tỉ lệ mol NaOH:H3PO4 = 1:1 -> NaH2PO4; 2:1 -> Na2HPO4; 3:1 -> Na3PO4."
+    },
+    {
+      "key": "hno3_naoh", "reactants": ["HNO3","NaOH"], "products": ["NaNO3","H2O"],
+      "type": "neutralize", "condition": "dung_dich",
+      "balanced": "HNO3 + NaOH -> NaNO3 + H2O",
+      "note": "HNO3 là axit 1 nấc mạnh. Trung hòa đơn giản tạo NaNO3."
+    },
+    {
+      "key": "cao_hcl", "reactants": ["CaO","HCl"], "products": ["CaCl2","H2O"],
+      "type": "neutralize", "condition": "dung_dich",
+      "balanced": "CaO + 2HCl -> CaCl2 + 2H2O",
+      "note": "CaO là oxit bazơ, tác dụng với axit -> muối + nước."
+    },
+    {
+      "key": "fe2o3_hcl", "reactants": ["Fe2O3","HCl"], "products": ["FeCl3","H2O"],
+      "type": "neutralize", "condition": "dung_dich",
+      "balanced": "Fe2O3 + 6HCl -> 2FeCl3 + 3H2O",
+      "note": "Fe2O3 là oxit Fe3+. Tan trong HCl -> FeCl3 (muối sắt III)."
+    },
+    {
+      "key": "fe2o3_h2so4", "reactants": ["Fe2O3","H2SO4"], "products": ["Fe2(SO4)3","H2O"],
+      "type": "neutralize", "condition": "dung_dich",
+      "balanced": "Fe2O3 + 3H2SO4 -> Fe2(SO4)3 + 3H2O",
+      "note": "Fe2O3 + H2SO4 loãng -> Fe2(SO4)3."
+    },
+    {
+      "key": "caco3_hcl", "reactants": ["CaCO3","HCl"], "products": ["CaCl2","CO2","H2O"],
+      "type": "displacement", "condition": "dung_dich",
+      "balanced": "CaCO3 + 2HCl -> CaCl2 + CO2 + H2O",
+      "note": "Axit mạnh đẩy axit yếu (H2CO3) ra khỏi muối cacbonat. Sủi bọt CO2."
+    },
+    {
+      "key": "na2co3_hcl", "reactants": ["Na2CO3","HCl"], "products": ["NaCl","CO2","H2O"],
+      "type": "displacement", "condition": "dung_dich",
+      "balanced": "Na2CO3 + 2HCl -> 2NaCl + CO2 + H2O",
+      "note": "Na2CO3 + HCl mạnh -> NaCl + CO2 sủi bọt."
+    },
+    {
+      "key": "na2co3_h2so4", "reactants": ["Na2CO3","H2SO4"], "products": ["Na2SO4","CO2","H2O"],
+      "type": "displacement", "condition": "dung_dich",
+      "balanced": "Na2CO3 + H2SO4 -> Na2SO4 + CO2 + H2O",
+      "note": "H2SO4 mạnh đẩy CO2 ra khỏi Na2CO3."
+    }
+  ]
+}

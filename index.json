@@ -1,0 +1,130 @@
+{
+  "meta": {
+    "project": "PTHH Tools Data",
+    "version": "1.0",
+    "description": "Bộ dữ liệu hoá học dạng JSON — dùng cho cb_pthh, ht_pthh, bth_hh, sua_pthh",
+    "total_files": 13,
+    "usage": "Fetch file theo tên. Ví dụ: fetch('./data/elements.json')"
+  },
+  "files": [
+    {
+      "file": "elements.json",
+      "desc": "Nguyên tố, gốc axit, nhóm ion — chuyển đổi từ Bthh.txt",
+      "keys": ["elements", "acidRoots", "groups"],
+      "counts": { "elements": 71, "acidRoots": 38, "groups": 3 },
+      "usedBy": ["sua_pthh.html", "bth_hh.html"]
+    },
+    {
+      "file": "reactions_01_tong_hop.json",
+      "desc": "Phản ứng tổng hợp — oxit+nước, KL+O2, oxit+oxit",
+      "type": "synthesis",
+      "count": 18,
+      "usedBy": ["ht_pthh.html", "cb_pthh.html"]
+    },
+    {
+      "file": "reactions_02_the_kim_loai_axit.json",
+      "desc": "Kim loại + HCl, H2SO4 loãng/đặc, HNO3 loãng/đặc",
+      "type": "displacement+redox",
+      "count": 14,
+      "usedBy": ["ht_pthh.html", "cb_pthh.html"]
+    },
+    {
+      "file": "reactions_03_kim_loai_nuoc_muoi.json",
+      "desc": "Kim loại + nước, kim loại + dung dịch muối",
+      "type": "displacement",
+      "count": 7,
+      "usedBy": ["ht_pthh.html", "cb_pthh.html"]
+    },
+    {
+      "file": "reactions_04_trung_hoa.json",
+      "desc": "Trung hòa axit-bazơ, oxit bazơ + axit, muối cacbonat + axit",
+      "type": "neutralize",
+      "count": 12,
+      "usedBy": ["ht_pthh.html", "cb_pthh.html"]
+    },
+    {
+      "file": "reactions_05_phan_huy.json",
+      "desc": "Phân hủy nhiệt: CaCO3, KMnO4, H2O2, KClO3, bazơ không tan, NO2+H2O",
+      "type": "decomp",
+      "count": 8,
+      "usedBy": ["ht_pthh.html", "cb_pthh.html"]
+    },
+    {
+      "file": "reactions_06_redox_nhiet.json",
+      "desc": "Nhiệt nhôm, khử oxit KL bằng C/H2/CO, KMnO4+HCl, S+O2",
+      "type": "redox",
+      "count": 8,
+      "usedBy": ["ht_pthh.html", "cb_pthh.html"]
+    },
+    {
+      "file": "reactions_07_chay_huu_co.json",
+      "desc": "Đốt cháy: CH4, C2H6, C3H8, C2H4, C2H2, C6H12O6, C2H5OH, C+O2",
+      "type": "combustion",
+      "count": 9,
+      "usedBy": ["ht_pthh.html", "cb_pthh.html"]
+    },
+    {
+      "file": "reactions_08_co2_kiem.json",
+      "desc": "CO2/SO2 + NaOH/KOH/Ca(OH)2 — tỉ lệ mol quyết định sản phẩm",
+      "type": "synthesis",
+      "count": 8,
+      "usedBy": ["ht_pthh.html", "cb_pthh.html"]
+    },
+    {
+      "file": "reactions_09_phan_ung_dac_biet.json",
+      "desc": "Haber (N2+H2), NH3+O2, Cl2+NaOH, Al+NaOH, Fe+Cl2, điều chế HCl/Cl2",
+      "type": "mixed",
+      "count": 14,
+      "usedBy": ["ht_pthh.html", "cb_pthh.html"]
+    },
+    {
+      "file": "reactions_10_huu_co.json",
+      "desc": "Hữu cơ: cộng, thế, trùng hợp, este hóa, xà phòng hóa, lên men, ancol+Na",
+      "type": "organic",
+      "count": 18,
+      "usedBy": ["ht_pthh.html", "cb_pthh.html"]
+    },
+    {
+      "file": "formulas_01_vo_co.json",
+      "desc": "Công thức vô cơ: 24 oxit, 18 axit, 12 bazơ — tên gọi, MW, tính chất",
+      "keys": ["compounds.oxides", "compounds.acids", "compounds.bases"],
+      "counts": { "oxides": 24, "acids": 18, "bases": 12 },
+      "usedBy": ["sua_pthh.html", "bth_hh.html"]
+    },
+    {
+      "file": "formulas_02_muoi_huu_co.json",
+      "desc": "45 muối thường gặp + 35 hợp chất hữu cơ cơ bản",
+      "keys": ["salts", "organic"],
+      "counts": { "salts": 45, "organic": 35 },
+      "usedBy": ["sua_pthh.html", "ht_pthh.html"]
+    }
+  ],
+  "quickLookup": {
+    "byReactants": "Dùng reactions_01..10.json, tìm trong mảng reactions[].reactants",
+    "byFormula": "Dùng formulas_01_vo_co.json hoặc formulas_02_muoi_huu_co.json",
+    "byElement": "Dùng elements.json -> elements['SYM']",
+    "byAcidRoot": "Dùng elements.json -> acidRoots['SYM']",
+    "byValence": "elements.json -> elements['SYM'].valence (mảng), main là hóa trị phổ biến nhất"
+  },
+  "conditionLabels": {
+    "thuong": "Điều kiện thường",
+    "nhiet": "Đun nóng",
+    "nhiet_cao": "Nhiệt độ cao",
+    "dung_dich": "Dung dịch",
+    "dac": "Axit đặc / nóng",
+    "sang": "Ánh sáng"
+  },
+  "typeLabels": {
+    "synthesis": "Tổng hợp",
+    "decomp": "Phân hủy",
+    "displacement": "Thế",
+    "neutralize": "Trung hòa",
+    "combustion": "Đốt cháy",
+    "redox": "Oxi hóa khử",
+    "special": "Đặc biệt",
+    "addition": "Cộng (hữu cơ)",
+    "substitution": "Thế (hữu cơ)",
+    "polymerization": "Trùng hợp",
+    "organic": "Hữu cơ"
+  }
+}

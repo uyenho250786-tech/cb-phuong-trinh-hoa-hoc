@@ -1,0 +1,105 @@
+{
+  "meta": { "file": "reactions_09_phan_ung_dac_biet.json", "type": "mixed", "desc": "Phản ứng đặc biệt — tổng hợp NH3, Haber, điện phân, Cl2, tôi vôi, xút", "count": 14 },
+  "reactions": [
+    {
+      "key": "n2_h2_nh3", "reactants": ["N2","H2"], "products": ["NH3"],
+      "type": "synthesis", "condition": "nhiet_cao",
+      "balanced": "N2 + 3H2 -> 2NH3",
+      "oxidation": [{"elem":"N","from":"0","to":"-3"},{"elem":"H","from":"0","to":"+1"}],
+      "note": "Quy trình Haber-Bosch. 450-500°C, 150-300 atm, xúc tác Fe. Thuận nghịch.",
+      "warnings": "Phản ứng thuận nghịch. Tăng áp suất và giảm nhiệt độ có lợi cho chiều thuận (tạo NH3)."
+    },
+    {
+      "key": "nh3_o2_khong_xuc_tac", "reactants": ["NH3","O2"], "products": ["N2","H2O"],
+      "type": "redox", "condition": "nhiet",
+      "balanced": "4NH3 + 3O2 -> 2N2 + 6H2O",
+      "oxidation": [{"elem":"N","from":"-3","to":"0"},{"elem":"O","from":"0","to":"-2"}],
+      "note": "NH3 cháy trong O2 không xúc tác -> N2 + H2O."
+    },
+    {
+      "key": "nh3_o2_xuc_tac", "reactants": ["NH3","O2"], "products": ["NO","H2O"],
+      "type": "redox", "condition": "nhiet",
+      "balanced": "4NH3 + 5O2 -> 4NO + 6H2O",
+      "oxidation": [{"elem":"N","from":"-3","to":"+2"},{"elem":"O","from":"0","to":"-2"}],
+      "note": "Có xúc tác Pt/Rh, 850-900°C. Bước đầu sản xuất HNO3 công nghiệp (Ostwald)."
+    },
+    {
+      "key": "no_o2", "reactants": ["NO","O2"], "products": ["NO2"],
+      "type": "synthesis", "condition": "thuong",
+      "balanced": "2NO + O2 -> 2NO2",
+      "oxidation": [{"elem":"N","from":"+2","to":"+4"},{"elem":"O","from":"0","to":"-2"}],
+      "note": "NO (không màu) + O2 -> NO2 (nâu đỏ, độc) tự phát ở điều kiện thường."
+    },
+    {
+      "key": "cl2_h2o", "reactants": ["Cl2","H2O"], "products": ["HCl","HClO"],
+      "type": "special", "condition": "thuong",
+      "balanced": "Cl2 + H2O -> HCl + HClO",
+      "oxidation": [{"elem":"Cl (->-1)","from":"0","to":"-1"},{"elem":"Cl (->=+1)","from":"0","to":"+1"}],
+      "note": "Cl2 tan trong nước -> nước clo (dị ly). HClO là chất oxi hóa mạnh, tẩy trùng.",
+      "warnings": "Cl2 + H2O -> dung dịch axit yếu (nước clo). Khác với Cl2 + NaOH -> nước Javen."
+    },
+    {
+      "key": "cl2_naoh_lanh", "reactants": ["Cl2","NaOH"], "products": ["NaCl","NaClO","H2O"],
+      "type": "special", "condition": "thuong",
+      "balanced": "Cl2 + 2NaOH -> NaCl + NaClO + H2O",
+      "oxidation": [{"elem":"Cl (->-1)","from":"0","to":"-1"},{"elem":"Cl (->+1)","from":"0","to":"+1"}],
+      "note": "NaOH lạnh + Cl2 -> nước Javen (NaCl + NaClO). Chất tẩy trắng.",
+      "warnings": "NaOH nóng (70-80°C): 3Cl2 + 6NaOH -> 5NaCl + NaClO3 + 3H2O."
+    },
+    {
+      "key": "cl2_ca_oh_2", "reactants": ["Cl2","Ca(OH)2"], "products": ["CaOCl2","H2O"],
+      "type": "synthesis", "condition": "thuong",
+      "balanced": "Cl2 + Ca(OH)2 -> CaOCl2 + H2O",
+      "note": "Tạo clorua vôi CaOCl2 (bột tẩy trắng). Ca(OH)2 dạng bột khô."
+    },
+    {
+      "key": "nh3_hcl", "reactants": ["NH3","HCl"], "products": ["NH4Cl"],
+      "type": "synthesis", "condition": "thuong",
+      "balanced": "NH3 + HCl -> NH4Cl",
+      "note": "NH3 (khí) + HCl (khí) -> NH4Cl (khói trắng). Phản ứng nhận biết NH3."
+    },
+    {
+      "key": "nacl_h2so4_dac", "reactants": ["NaCl","H2SO4"], "products": ["NaHSO4","HCl"],
+      "type": "displacement", "condition": "dac",
+      "balanced": "NaCl + H2SO4 (đặc) -> NaHSO4 + HCl",
+      "note": "H2SO4 đặc nguội đẩy HCl ra khỏi muối NaCl. Điều chế HCl trong phòng thí nghiệm.",
+      "warnings": "Nung nóng: NaCl + H2SO4 -> Na2SO4 + 2HCl."
+    },
+    {
+      "key": "nabr_h2so4_dac", "reactants": ["NaBr","H2SO4"], "products": ["NaHSO4","HBr"],
+      "type": "displacement", "condition": "dac",
+      "balanced": "NaBr + H2SO4 (đặc) -> NaHSO4 + HBr",
+      "note": "H2SO4 đặc đẩy HBr, nhưng HBr dễ bị oxi hóa tiếp -> Br2 + SO2.",
+      "warnings": "H2SO4 đặc có thể oxi hóa HBr -> Br2 (nâu đỏ). Khác NaCl + H2SO4 chỉ cho HCl."
+    },
+    {
+      "key": "fe3o4_hcl", "reactants": ["Fe3O4","HCl"], "products": ["FeCl2","FeCl3","H2O"],
+      "type": "neutralize", "condition": "dung_dich",
+      "balanced": "Fe3O4 + 8HCl -> FeCl2 + 2FeCl3 + 4H2O",
+      "note": "Fe3O4 chứa Fe2+ và Fe3+ -> cho ra cả FeCl2 và FeCl3."
+    },
+    {
+      "key": "fe_cl2", "reactants": ["Fe","Cl2"], "products": ["FeCl3"],
+      "type": "redox", "condition": "nhiet",
+      "balanced": "2Fe + 3Cl2 -> 2FeCl3",
+      "oxidation": [{"elem":"Fe","from":"0","to":"+3"},{"elem":"Cl","from":"0","to":"-1"}],
+      "note": "Cl2 là chất oxi hóa mạnh, oxi hóa Fe lên Fe3+ (khác HCl loãng -> Fe2+).",
+      "warnings": "Fe + Cl2 -> FeCl3 (Fe3+). Fe + HCl loãng -> FeCl2 (Fe2+). Hai sản phẩm khác nhau!"
+    },
+    {
+      "key": "cu_cl2", "reactants": ["Cu","Cl2"], "products": ["CuCl2"],
+      "type": "redox", "condition": "nhiet",
+      "balanced": "Cu + Cl2 -> CuCl2",
+      "oxidation": [{"elem":"Cu","from":"0","to":"+2"},{"elem":"Cl","from":"0","to":"-1"}],
+      "note": "Cu + Cl2 trực tiếp -> CuCl2 (xanh lam). Cu không phản ứng HCl nhưng phản ứng Cl2 trực tiếp."
+    },
+    {
+      "key": "al_naoh_h2o", "reactants": ["Al","NaOH","H2O"], "products": ["NaAlO2","H2"],
+      "type": "redox", "condition": "dung_dich",
+      "balanced": "2Al + 2NaOH + 2H2O -> 2NaAlO2 + 3H2",
+      "oxidation": [{"elem":"Al","from":"0","to":"+3"},{"elem":"H","from":"+1","to":"0"}],
+      "note": "Al là kim loại lưỡng tính, tan trong cả axit lẫn kiềm mạnh. Tạo NaAlO2 (natri aluminat) + H2.",
+      "warnings": "Al tan trong NaOH/KOH loãng ở điều kiện thường, sủi bọt H2."
+    }
+  ]
+}

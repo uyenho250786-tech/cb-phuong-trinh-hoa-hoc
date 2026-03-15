@@ -1,0 +1,59 @@
+{
+  "meta": { "file": "reactions_05_phan_huy.json", "type": "decomp", "desc": "Phản ứng phân hủy nhiệt — muối, bazơ, peoxit", "count": 8 },
+  "reactions": [
+    {
+      "key": "caco3_phan_huy", "reactants": ["CaCO3"], "products": ["CaO","CO2"],
+      "type": "decomp", "condition": "nhiet_cao",
+      "balanced": "CaCO3 -> CaO + CO2",
+      "note": "Nung CaCO3 ~900°C -> CaO (vôi sống) + CO2. Cơ sở sản xuất xi măng và vôi công nghiệp."
+    },
+    {
+      "key": "kmno4_phan_huy", "reactants": ["KMnO4"], "products": ["K2MnO4","MnO2","O2"],
+      "type": "decomp", "condition": "nhiet",
+      "balanced": "2KMnO4 -> K2MnO4 + MnO2 + O2",
+      "oxidation": [{"elem":"Mn (->+6)","from":"+7","to":"+6"},{"elem":"Mn (->+4)","from":"+7","to":"+4"}],
+      "note": "Phân hủy dị ly Mn+7. Điều chế O2 trong phòng thí nghiệm."
+    },
+    {
+      "key": "h2o2_phan_huy", "reactants": ["H2O2"], "products": ["H2O","O2"],
+      "type": "decomp", "condition": "nhiet",
+      "balanced": "2H2O2 -> 2H2O + O2",
+      "oxidation": [{"elem":"O (-1->-2)","from":"-1","to":"-2"},{"elem":"O (-1->0)","from":"-1","to":"0"}],
+      "note": "H2O2 không bền. MnO2 làm xúc tác. O ở số oxi hóa -1 trong H2O2.",
+      "warnings": "Phản ứng dị ly oxi: O-1 -> O-2 và O-1 -> O0 đồng thời."
+    },
+    {
+      "key": "kclo3_phan_huy", "reactants": ["KClO3"], "products": ["KCl","O2"],
+      "type": "decomp", "condition": "nhiet",
+      "balanced": "2KClO3 -> 2KCl + 3O2",
+      "oxidation": [{"elem":"Cl","from":"+5","to":"-1"},{"elem":"O","from":"-2","to":"0"}],
+      "note": "MnO2 xúc tác. Điều chế O2 phòng thí nghiệm."
+    },
+    {
+      "key": "cu_oh_2_phan_huy", "reactants": ["Cu(OH)2"], "products": ["CuO","H2O"],
+      "type": "decomp", "condition": "nhiet",
+      "balanced": "Cu(OH)2 -> CuO + H2O",
+      "note": "Cu(OH)2 xanh lơ -> CuO đen + H2O khi đun nóng."
+    },
+    {
+      "key": "fe_oh_3_phan_huy", "reactants": ["Fe(OH)3"], "products": ["Fe2O3","H2O"],
+      "type": "decomp", "condition": "nhiet",
+      "balanced": "2Fe(OH)3 -> Fe2O3 + 3H2O",
+      "note": "Fe(OH)3 nâu đỏ -> Fe2O3 đỏ nâu khi đun nóng."
+    },
+    {
+      "key": "ca_oh_2_phan_huy", "reactants": ["Ca(OH)2"], "products": ["CaO","H2O"],
+      "type": "decomp", "condition": "nhiet_cao",
+      "balanced": "Ca(OH)2 -> CaO + H2O",
+      "note": "Nung Ca(OH)2 ở nhiệt độ cao -> CaO + H2O. Ngược với vôi tôi."
+    },
+    {
+      "key": "no2_h2o", "reactants": ["NO2","H2O"], "products": ["HNO3","HNO2"],
+      "type": "special", "condition": "thuong",
+      "balanced": "2NO2 + H2O -> HNO3 + HNO2",
+      "oxidation": [{"elem":"N (->+5)","from":"+4","to":"+5"},{"elem":"N (->+3)","from":"+4","to":"+3"}],
+      "note": "Phản ứng tự oxi hóa khử (dị ly): N+4 vừa lên +5 vừa xuống +3.",
+      "warnings": "Nếu có dư O2: 4NO2 + O2 + 2H2O -> 4HNO3. Chỉ tạo HNO3."
+    }
+  ]
+}
