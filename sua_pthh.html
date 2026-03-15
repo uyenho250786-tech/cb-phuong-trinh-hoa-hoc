@@ -30,7 +30,7 @@ body{background:var(--bg);color:var(--text);font-family:'Space Mono',monospace;m
 .nav-bar{position:sticky;top:0;z-index:100;background:rgba(8,12,18,0.94);backdrop-filter:blur(16px);
   border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:8px;min-height:52px;}
 .nav-brand{font-family:'Syne',sans-serif;font-weight:800;font-size:0.9rem;color:var(--teal);
-  letter-spacing:1px;white-space:nowrap;padding-right:14px;border-right:1px solid var(--border);margin-right:4px;flex-shrink:0;}
+  letter-spacing:1px;white-space:nowrap;padding-right:14px;border-right:1px solid var(--border);margin-right:4px;flex-shrink:0;text-decoration:none;cursor:pointer;}
 .nav-btns{display:flex;gap:6px;flex:1;}
 .nav-btn{padding:7px 14px;background:transparent;border:1px solid var(--border);border-radius:8px;
   font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.8px;color:var(--muted);
@@ -237,16 +237,18 @@ h1{font-family:'Syne',sans-serif;font-size:clamp(1.5rem,4vw,2.3rem);font-weight:
     <a class="nav-btn" href="./cb_pthh.html">CÂN BẰNG PHƯƠNG TRÌNH</a>
     <a class="nav-btn" href="./ht_pthh.html">VIẾT PHƯƠNG TRÌNH HOÀN THIỆN</a>
     <a class="nav-btn" href="./bth_hh.html">BẢNG TUẦN HOÀN</a>
+    <a class="nav-btn active" href="./sua_pthh.html">SỬA CÔNG THỨC</a>
   </div>
   <div class="hamburger-wrap">
     <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
     <div class="nav-menu" id="navMenu">
+      <a class="menu-item" href="./index.html">Trang chủ</a>
+      <div class="menu-divider"></div>
       <a class="menu-item" href="./cb_pthh.html">Cân Bằng Phương Trình</a>
       <a class="menu-item" href="./ht_pthh.html">Viết Phương Trình Hoàn Thiện</a>
       <a class="menu-item" href="./bth_hh.html">Bảng Tuần Hoàn</a>
-      <div class="menu-divider"></div>
       <a class="menu-item active" href="./sua_pthh.html">Sửa Công Thức</a>
     </div>
   </div>
