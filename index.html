@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hoá Học - Bộ Công Cụ</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#ffffff;
+  --text:#0a0a0a;
+  --muted:#888;
+  --border:#e5e5e5;
+  --border2:#c8c8c8;
+  --hover-bg:#f5f5f5;
+}
+html,body{height:100%;background:var(--bg);color:var(--text);}
+body{font-family:'Space Mono',monospace;display:flex;flex-direction:column;min-height:100vh;overflow-x:hidden;}
+
+.topbar{
+  padding:18px 32px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--border);
+}
+.brand{
+  font-family:'Syne',sans-serif;
+  font-size:0.78rem;font-weight:700;
+  letter-spacing:3px;text-transform:uppercase;
+  color:var(--text);text-decoration:none;
+}
+.topbar-right{font-size:0.6rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;}
+
+.hero{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:60px 24px 40px;
+}
+
+.hero-label{
+  font-size:0.62rem;letter-spacing:4px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:20px;
+  display:flex;align-items:center;gap:12px;
+}
+.hero-label::before,.hero-label::after{
+  content:'';display:block;width:28px;height:1px;background:var(--border2);
+}
+
+h1{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(2.4rem,7vw,5rem);
+  font-weight:800;letter-spacing:-2px;line-height:1;
+  text-align:center;color:var(--text);margin-bottom:14px;
+}
+h1 span{
+  display:inline-block;
+  border-bottom:3px solid var(--text);padding-bottom:2px;
+}
+
+.hero-sub{
+  font-size:0.7rem;letter-spacing:1.5px;color:var(--muted);
+  text-align:center;margin-bottom:52px;text-transform:uppercase;
+}
+
+.menu-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);border-radius:2px;
+  overflow:hidden;width:100%;max-width:680px;
+}
+@media(max-width:480px){.menu-grid{grid-template-columns:1fr;}}
+
+.menu-card{
+  background:var(--bg);padding:30px 26px 44px;
+  text-decoration:none;color:var(--text);
+  display:flex;flex-direction:column;gap:9px;
+  position:relative;transition:background 0.15s;
+  overflow:hidden;
+}
+.menu-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:var(--text);transform:scaleX(0);transform-origin:left;
+  transition:transform 0.25s cubic-bezier(.4,0,.2,1);
+}
+.menu-card:hover{background:var(--hover-bg);}
+.menu-card:hover::after{transform:scaleX(1);}
+
+.card-num{
+  font-family:'Syne',sans-serif;
+  font-size:0.58rem;letter-spacing:3px;color:var(--muted);
+  font-weight:700;text-transform:uppercase;
+}
+.card-title{
+  font-family:'Syne',sans-serif;
+  font-size:1.1rem;font-weight:800;letter-spacing:-0.4px;line-height:1.25;
+}
+.card-desc{font-size:0.63rem;letter-spacing:0.3px;color:var(--muted);line-height:1.65;}
+.card-tag{
+  position:absolute;bottom:20px;right:20px;
+  font-size:0.55rem;letter-spacing:2px;text-transform:uppercase;
+  color:var(--border2);font-family:'Syne',sans-serif;font-weight:700;
+  transition:color 0.15s;
+}
+.menu-card:hover .card-tag{color:var(--text);}
+
+footer{
+  padding:18px 32px;border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;
+}
+.footer-txt{font-size:0.58rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+.hero-label{animation:fadeUp 0.45s ease both;}
+h1{animation:fadeUp 0.5s 0.05s ease both;}
+.hero-sub{animation:fadeUp 0.5s 0.1s ease both;}
+.menu-grid{animation:fadeUp 0.55s 0.14s ease both;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="brand">Hoá Học</span>
+  <span class="topbar-right">Bộ công cụ học tập</span>
+</div>
+
+<main class="hero">
+  <div class="hero-label">Chọn công cụ</div>
+  <h1>Phương Trình<br><span>Hoá Học</span></h1>
+  <p class="hero-sub">Cân bằng &middot; Dự đoán &middot; Tra cứu &middot; Kiểm tra</p>
+
+  <div class="menu-grid">
+
+    <a class="menu-card" href="./cb_pthh.html">
+      <div class="card-num">01</div>
+      <div class="card-title">Cân Bằng<br>Phương Trình</div>
+      <div class="card-desc">Tự động cân bằng hệ số bằng<br>phương pháp khử Gauss</div>
+      <div class="card-tag">CB PTHH</div>
+    </a>
+
+    <a class="menu-card" href="./ht_pthh.html">
+      <div class="card-num">02</div>
+      <div class="card-title">Viết Phương Trình<br>Hoàn Thiện</div>
+      <div class="card-desc">Dự đoán sản phẩm &amp; điều kiện<br>từ chất phản ứng nhập vào</div>
+      <div class="card-tag">HT PTHH</div>
+    </a>
+
+    <a class="menu-card" href="./bth_hh.html">
+      <div class="card-num">03</div>
+      <div class="card-title">Bảng Tuần Hoàn<br>118 Nguyên Tố</div>
+      <div class="card-desc">Tra cứu thông số đầy đủ từng<br>nguyên tố hoá học</div>
+      <div class="card-tag">BTH HH</div>
+    </a>
+
+    <a class="menu-card" href="./sua_pthh.html">
+      <div class="card-num">04</div>
+      <div class="card-title">Kiểm Tra<br>Công Thức</div>
+      <div class="card-desc">Phân tích &amp; sửa công thức<br>dựa trên hoá trị nguyên tố</div>
+      <div class="card-tag">SUA PTHH</div>
+    </a>
+
+  </div>
+</main>
+
+<footer>
+  <span class="footer-txt">Design by Wbiu</span>
+  <span class="footer-txt">4 công cụ</span>
+</footer>
+
+</body>
+</html>
